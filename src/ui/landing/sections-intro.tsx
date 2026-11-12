@@ -12,7 +12,8 @@ import {
 } from 'react-icons/pi';
 import type { IconType } from 'react-icons';
 import { TOPICS, WORLD } from '@/world/world.config';
-import { Accent, ArtSlot, ButtonLink, Eyebrow, Heading, Highlight, LaterTag, Lead, Section } from './primitives';
+import { Accent, ArtSlot, Eyebrow, Heading, Highlight, LaterTag, Lead, Section } from './primitives';
+import { ButtonLink } from '@/ui/components';
 
 /* 01 — Hero */
 export function HeroSection() {
@@ -36,7 +37,7 @@ export function HeroSection() {
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <ButtonLink href="/enter">Enter the Dark World 😈</ButtonLink>
-            <ButtonLink href="#how-it-works" variant="ghost" icon={PiArrowDown}>
+            <ButtonLink href="#how-it-works" variant="secondary" iconEnd={PiArrowDown}>
               Discover how it works
             </ButtonLink>
           </div>

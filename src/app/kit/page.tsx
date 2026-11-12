@@ -1,8 +1,26 @@
 import type { Metadata } from 'next';
-import { PiArrowRight, PiDiceFive, PiPlus, PiShieldCheck, PiTrash } from 'react-icons/pi';
+import {
+  PiArrowLeft,
+  PiArrowRight,
+  PiBell,
+  PiBookmarkSimple,
+  PiDiceFive,
+  PiDotsThreeBold,
+  PiGear,
+  PiImage,
+  PiList,
+  PiMagnifyingGlass,
+  PiPaperPlaneRight,
+  PiPlus,
+  PiShareNetwork,
+  PiShieldCheck,
+  PiSmiley,
+  PiTrash,
+  PiX,
+} from 'react-icons/pi';
 import { Brand } from '@/ui/landing/site-header';
 import { Accent } from '@/ui/landing/primitives';
-import { Button, ButtonLink } from '@/ui/components';
+import { Button, ButtonLink, IconButton, IconButtonLink } from '@/ui/components';
 import { Spec, Specimen, StateGrid, StatusTag, type Status } from './kit-parts';
 import { Swatch } from './swatch';
 
@@ -14,10 +32,10 @@ export const metadata: Metadata = { title: 'Component kit', robots: { index: fal
  */
 
 const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
-  { id: 'foundations', name: 'Foundations', status: 'review', group: 'Base' },
-  { id: 'button', name: 'Button', status: 'review', group: 'Base' },
-  { id: 'icon-button', name: 'Icon button', status: 'next', group: 'Base' },
-  { id: 'text-link', name: 'Text link', status: 'planned', group: 'Base' },
+  { id: 'foundations', name: 'Foundations', status: 'done', group: 'Base' },
+  { id: 'button', name: 'Button', status: 'done', group: 'Base' },
+  { id: 'icon-button', name: 'Icon button', status: 'review', group: 'Base' },
+  { id: 'text-link', name: 'Text link', status: 'next', group: 'Base' },
   { id: 'tag', name: 'Tag & count badge', status: 'planned', group: 'Base' },
   { id: 'card', name: 'Card', status: 'planned', group: 'Base' },
   { id: 'field', name: 'Text field', status: 'planned', group: 'Forms' },
@@ -70,7 +88,7 @@ function Foundations() {
     <Spec
       id="foundations"
       title="Foundations"
-      status="review"
+      status="done"
       summary="The tokens every component is built from: one name per design decision. Change a token, and every component follows. Components never use a raw colour or pixel value."
     >
       {Object.entries(COLOURS).map(([group, list]) => (
@@ -153,7 +171,7 @@ function ButtonSpec() {
     <Spec
       id="button"
       title="Button"
-      status="review"
+      status="done"
       summary="The only way to make an action look like a button. Five variants, three sizes, and every state built in, so no page ever invents its own."
       use={[
         'Primary: the one main action of a screen or card. At most one per view.',
@@ -263,6 +281,118 @@ function ButtonSpec() {
   );
 }
 
+function IconButtonSpec() {
+  const variants = [
+    { label: 'Secondary', variant: 'secondary' as const, icon: PiDotsThreeBold, name: 'More options' },
+    { label: 'Quiet', variant: 'quiet' as const, icon: PiShareNetwork, name: 'Share' },
+    { label: 'Primary', variant: 'primary' as const, icon: PiPaperPlaneRight, name: 'Send' },
+  ];
+  const common = [
+    { icon: PiList, name: 'Menu' },
+    { icon: PiX, name: 'Close' },
+    { icon: PiArrowLeft, name: 'Back' },
+    { icon: PiDotsThreeBold, name: 'More (Bold)' },
+    { icon: PiMagnifyingGlass, name: 'Search' },
+    { icon: PiBell, name: 'Notifications' },
+    { icon: PiGear, name: 'Settings' },
+    { icon: PiPaperPlaneRight, name: 'Send' },
+  ];
+
+  return (
+    <Spec
+      id="icon-button"
+      title="Icon button"
+      status="review"
+      summary="A round button that is only an icon. It always carries a label for screen readers, because there's no visible text to read."
+      use={[
+        'Secondary (outlined): standalone icons in headers and cards: menu, more, close.',
+        'Quiet: rows of icons, toolbars, the corner of a post.',
+        'Primary: only when the icon is the main action, like Send in a composer.',
+        'Pressed: toggles that stay on, like Save or Mute.',
+      ]}
+      avoid={[
+        'Actions people won’t recognise from the icon alone: use a Button with text.',
+        'Icons smaller than 20px: Phosphor Regular blurs on laptop screens.',
+        'Regular-weight “more” dots: they vanish. More is the one Bold icon.',
+      ]}
+    >
+      <Specimen title="Variants × states" note="Hover, press and Tab to them.">
+        <StateGrid
+          columns={['Default', 'Pressed (on)', 'Loading', 'Disabled']}
+          rows={variants.map((v) => ({
+            label: v.label,
+            cells: [
+              <IconButton key="d" icon={v.icon} label={v.name} variant={v.variant} />,
+              <IconButton key="p" icon={PiBookmarkSimple} label="Save" variant={v.variant} pressed />,
+              <IconButton key="l" icon={v.icon} label={v.name} variant={v.variant} loading />,
+              <IconButton key="x" icon={v.icon} label={v.name} variant={v.variant} disabled />,
+            ],
+          }))}
+        />
+      </Specimen>
+
+      <Specimen title="Sizes" note="44 · 48 · 56px boxes, with 20 · 24 · 28px icons.">
+        <div className="flex flex-wrap items-center gap-4">
+          <IconButton icon={PiBell} label="Notifications" size="sm" />
+          <IconButton icon={PiBell} label="Notifications" size="md" />
+          <IconButton icon={PiBell} label="Notifications" size="lg" />
+          <span className="mx-2 h-8 w-px bg-line" aria-hidden />
+          <IconButton icon={PiPaperPlaneRight} label="Send" size="sm" variant="primary" />
+          <IconButton icon={PiPaperPlaneRight} label="Send" size="md" variant="primary" />
+          <IconButton icon={PiPaperPlaneRight} label="Send" size="lg" variant="primary" />
+        </div>
+      </Specimen>
+
+      <Specimen title="The common set" note="One icon per meaning, used the same way everywhere.">
+        <ul className="grid grid-cols-4 gap-4 sm:grid-cols-8">
+          {common.map((c) => (
+            <li key={c.name} className="flex flex-col items-center gap-2 text-center">
+              <IconButton icon={c.icon} label={c.name} variant="quiet" />
+              <span className="text-xs text-smoke">{c.name}</span>
+            </li>
+          ))}
+        </ul>
+      </Specimen>
+
+      <Specimen title="In context" note="A screen header, a post corner and a composer.">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 rounded-card border border-line bg-surface px-3 py-2">
+              <IconButtonLink href="/" icon={PiArrowLeft} label="Back" variant="quiet" />
+              <p className="flex-1 font-display font-bold text-bone">Hell Chat</p>
+              <IconButton icon={PiMagnifyingGlass} label="Search messages" variant="quiet" />
+              <IconButton icon={PiDotsThreeBold} label="More options" variant="quiet" />
+            </div>
+            <div className="rounded-card border border-line bg-surface p-4">
+              <div className="flex items-start gap-3">
+                <span aria-hidden className="flex size-10 shrink-0 items-center justify-center rounded-full bg-plum text-xl">
+                  🐼
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold text-bone">MidnightPanda</p>
+                  <p className="text-xs text-smoke">Trickster · 12 min</p>
+                </div>
+                <IconButton icon={PiBookmarkSimple} label="Save" variant="quiet" size="sm" pressed />
+                <IconButton icon={PiDotsThreeBold} label="More options" variant="quiet" size="sm" />
+              </div>
+              <p className="mt-3 text-sm text-bone">Confession: I clap when the plane lands. Every time.</p>
+            </div>
+          </div>
+          <div className="flex items-end">
+            <div className="flex w-full items-center gap-2 rounded-card border border-line bg-surface p-2 pl-3">
+              <IconButton icon={PiSmiley} label="Add a reaction" variant="quiet" size="sm" />
+              <p className="flex-1 text-sm text-smoke">Say something devilish…</p>
+              <IconButton icon={PiImage} label="Add a picture" variant="quiet" size="sm" disabled />
+              <IconButton icon={PiPaperPlaneRight} label="Send" variant="primary" size="sm" />
+            </div>
+          </div>
+        </div>
+        <p className="mt-4 text-xs text-smoke">The disabled picture button: images arrive in Level 7.</p>
+      </Specimen>
+    </Spec>
+  );
+}
+
 export default function KitPage() {
   const groups = [...new Set(ROADMAP.map((r) => r.group))];
   return (
@@ -314,6 +444,7 @@ export default function KitPage() {
           </div>
           <Foundations />
           <ButtonSpec />
+          <IconButtonSpec />
         </main>
       </div>
     </div>

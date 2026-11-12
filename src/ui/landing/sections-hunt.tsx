@@ -1,5 +1,6 @@
 import { PiCheck, PiClockCountdown, PiEye, PiShieldCheck } from 'react-icons/pi';
-import { Accent, ArtSlot, ButtonLink, Eyebrow, Heading, Lead, Section } from './primitives';
+import { Accent, ArtSlot, Eyebrow, Heading, Lead, Section } from './primitives';
+import { ButtonLink } from '@/ui/components';
 import { ExposureMeter } from './exposure-meter';
 
 /* 08 — Pure Souls */

@@ -12,7 +12,8 @@ import {
 } from 'react-icons/pi';
 import { WORLD } from '@/world/world.config';
 import { Brand } from './site-header';
-import { Accent, ArtSlot, ButtonLink, Eyebrow, Heading, Highlight, LaterTag, Lead, Section } from './primitives';
+import { Accent, ArtSlot, Eyebrow, Heading, Highlight, LaterTag, Lead, Section } from './primitives';
+import { ButtonLink } from '@/ui/components';
 
 /* 11 — Missions */
 const MISSIONS = [
@@ -158,7 +159,7 @@ export function FinaleSection() {
         <p className="mt-6 font-display text-xl font-bold text-crimson text-glow">The Pure Souls are watching. Are you ready?</p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <ButtonLink href="/enter">Become a Devil 😈</ButtonLink>
-          <ButtonLink href="#dark-world" variant="ghost">
+          <ButtonLink href="#dark-world" variant="secondary">
             Explore the Dark World
           </ButtonLink>
         </div>

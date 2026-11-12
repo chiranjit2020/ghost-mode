@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { PiDiceFive } from 'react-icons/pi';
+import { Button } from '@/ui/components';
 import { REACTION_MYSTERY_ODDS } from '@/world/world.config';
 
 type Outcome = (typeof REACTION_MYSTERY_ODDS)[number];
@@ -42,17 +43,17 @@ export function ReactionMystery() {
         )}
       </div>
 
-      <button
-        type="button"
+      <Button
+        fullWidth
+        icon={PiDiceFive}
+        className="mt-5"
         onClick={() => {
           setOutcome(draw());
           setTries((n) => n + 1);
         }}
-        className="btn-fire mt-5 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full px-6 font-semibold text-bone"
       >
-        <PiDiceFive aria-hidden className="size-5" />
         {outcome ? 'Try another post' : 'Reveal my reward'}
-      </button>
+      </Button>
 
       <details className="mt-4 text-sm text-ash">
         <summary className="cursor-pointer text-smoke hover:text-ash">The published odds</summary>

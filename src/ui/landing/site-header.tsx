@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { PiList, PiX } from 'react-icons/pi';
+import { ButtonLink } from '@/ui/components';
 
 const NAV = [
   { href: '#how-it-works', label: 'How it works' },
@@ -41,13 +42,10 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Link
-            href="/enter"
-            className="btn-fire inline-flex min-h-10 items-center rounded-full px-4 text-sm font-semibold whitespace-nowrap text-bone"
-          >
+          <ButtonLink href="/enter" size="sm">
             <span className="sm:hidden">Join</span>
             <span className="hidden sm:inline">Join the Underworld</span>
-          </Link>
+          </ButtonLink>
 
           <details className="menu relative lg:hidden">
             <summary

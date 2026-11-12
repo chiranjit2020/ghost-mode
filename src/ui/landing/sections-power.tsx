@@ -1,6 +1,7 @@
 import { PiCrown, PiLightning } from 'react-icons/pi';
 import { HALO, RANKS, REACTIONS } from '@/world/world.config';
-import { Accent, ArtSlot, ButtonLink, Eyebrow, Heading, Highlight, Lead, Section } from './primitives';
+import { Accent, ArtSlot, Eyebrow, Heading, Highlight, Lead, Section } from './primitives';
+import { ButtonLink } from '@/ui/components';
 import { ReactionMystery } from './reaction-mystery';
 
 /* 05 — Devil Points */

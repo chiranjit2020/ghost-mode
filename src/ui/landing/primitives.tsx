@@ -1,7 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import type { ReactNode } from 'react';
-import type { IconType } from 'react-icons';
 import { PiGhost } from 'react-icons/pi';
 import { ART, type ArtSlotId } from '@/world/art';
 
@@ -64,32 +62,6 @@ export function Lead({ children, className = '' }: { children: ReactNode; classN
 export function Highlight({ children }: { children: ReactNode }) {
   return (
     <p className="mt-10 border-l-2 border-crimson pl-4 font-display text-lg font-bold text-bone sm:text-xl">{children}</p>
-  );
-}
-
-export function ButtonLink({
-  href,
-  children,
-  variant = 'fire',
-  icon: Icon,
-}: {
-  href: string;
-  children: ReactNode;
-  variant?: 'fire' | 'ghost';
-  icon?: IconType;
-}) {
-  const look =
-    variant === 'fire'
-      ? 'btn-fire text-bone'
-      : 'border border-line-strong bg-surface/60 text-bone hover:border-ash hover:bg-surface-2';
-  return (
-    <Link
-      href={href}
-      className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[0.95rem] font-semibold transition ${look}`}
-    >
-      {children}
-      {Icon ? <Icon aria-hidden className="size-5" /> : null}
-    </Link>
   );
 }
 

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { PiArrowLeft, PiGhost } from 'react-icons/pi';
+import { ButtonLink } from '@/ui/components';
 import { Accent } from '@/ui/landing/primitives';
 
 export const metadata: Metadata = { title: 'The gate is closed' };
@@ -16,13 +16,9 @@ export default function EnterPage() {
           Creating a Ghost opens soon. This page is a preview of Howdy Ghost Mode, and sign-up is the next thing being
           built.
         </p>
-        <Link
-          href="/"
-          className="mt-8 inline-flex min-h-12 items-center gap-2 rounded-full border border-line-strong px-6 font-semibold text-bone hover:bg-surface"
-        >
-          <PiArrowLeft aria-hidden className="size-5" />
+        <ButtonLink href="/" variant="secondary" icon={PiArrowLeft} className="mt-8">
           Back to the Dark World
-        </Link>
+        </ButtonLink>
       </div>
     </main>
   );
