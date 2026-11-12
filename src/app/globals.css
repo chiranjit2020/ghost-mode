@@ -123,16 +123,23 @@ body {
 }
 
 /*
- * Small cards with a 1px theme-gradient border (ember → crimson → violet). The fill is painted inside the border
- * (padding-box) and the gradient under it (border-box), so the border shows through a transparent 1px edge.
- * --card-fill must be opaque.
+ * Small cards with a 1px theme-gradient edge that starts bright at the top-right corner (ember → crimson → violet)
+ * and fades to nothing toward the bottom-left. The fill is painted inside the border (padding-box) and the gradient
+ * under it (border-box), so the border shows through a transparent 1px edge. --card-fill must be opaque.
  */
 .gradient-card {
   --card-fill: var(--color-surface);
   border: 1px solid transparent;
   background:
     linear-gradient(var(--card-fill), var(--card-fill)) padding-box,
-    linear-gradient(135deg, var(--color-ember), var(--color-crimson) 50%, var(--color-violet)) border-box;
+    linear-gradient(
+        to bottom left,
+        var(--color-ember),
+        var(--color-crimson) 25%,
+        rgb(143 92 255 / 0.45) 50%,
+        transparent 72%
+      )
+      border-box;
   transition:
     transform 200ms ease,
     box-shadow 200ms ease;
