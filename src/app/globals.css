@@ -134,12 +134,14 @@ body {
     linear-gradient(var(--card-fill), var(--card-fill)) padding-box,
     linear-gradient(
         to bottom left,
-        var(--color-ember),
-        var(--color-crimson) 25%,
-        rgb(143 92 255 / 0.45) 50%,
+        rgb(255 122 26 / 0.4),
+        rgb(232 32 60 / 0.3) 25%,
+        rgb(143 92 255 / 0.15) 50%,
         transparent 72%
       )
-      border-box;
+      border-box,
+    /* The same faint hairline the image placeholders have, so the faded corner still has an edge. */
+    linear-gradient(var(--color-line), var(--color-line)) border-box;
   transition:
     transform 200ms ease,
     box-shadow 200ms ease;
