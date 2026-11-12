@@ -8,6 +8,16 @@ export {
   type IconButtonSize,
   type IconButtonVariant,
 } from './icon-button';
+export {
+  Card,
+  CardFoot,
+  CardLink,
+  cardClasses,
+  CardWell,
+  type CardPadding,
+  type CardShape,
+  type CardTone,
+} from './card';
 export { CountBadge } from './count-badge';
 export { Spinner } from './spinner';
 export { Tag, type TagSize, type TagTone } from './tag';

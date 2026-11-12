@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { PiList, PiX } from 'react-icons/pi';
-import { ButtonLink, iconButtonClasses, iconButtonIconClass } from '@/ui/components';
+import { ButtonLink, iconButtonClasses, iconButtonIconClass, Tag } from '@/ui/components';
 
 const NAV = [
   { href: '#how-it-works', label: 'How it works' },
@@ -16,9 +16,9 @@ export function Brand() {
   return (
     <Link href="/" className="flex items-center gap-2.5" aria-label="Howdy Ghost Mode, home">
       <Image src="/brand/howdy-wordmark-white.png" alt="" width={96} height={30} priority className="h-6 w-auto" />
-      <span className="rounded-full bg-crimson/15 px-2 py-0.5 whitespace-nowrap text-[0.7rem] font-bold tracking-[0.14em] text-crimson uppercase">
+      <Tag size="sm" tone="crimson">
         Ghost Mode
-      </span>
+      </Tag>
     </Link>
   );
 }

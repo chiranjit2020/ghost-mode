@@ -17,6 +17,7 @@ import {
   PiMagnifyingGlass,
   PiPaperPlaneRight,
   PiPlus,
+  PiScroll,
   PiShareNetwork,
   PiShieldCheck,
   PiSmiley,
@@ -26,7 +27,21 @@ import {
 import { Brand } from '@/ui/landing/site-header';
 import { Accent } from '@/ui/landing/primitives';
 import type { IconType } from 'react-icons';
-import { Button, ButtonLink, CountBadge, IconButton, IconButtonLink, Tag, TextLink, type TagTone } from '@/ui/components';
+import {
+  Button,
+  ButtonLink,
+  Card,
+  CardFoot,
+  CardLink,
+  CardWell,
+  CountBadge,
+  IconButton,
+  IconButtonLink,
+  Tag,
+  TextLink,
+  type CardTone,
+  type TagTone,
+} from '@/ui/components';
 import { Spec, Specimen, StateGrid, StatusTag, type Status } from './kit-parts';
 import { Swatch } from './swatch';
 
@@ -42,9 +57,9 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'button', name: 'Button', status: 'done', group: 'Base' },
   { id: 'icon-button', name: 'Icon button', status: 'done', group: 'Base' },
   { id: 'text-link', name: 'Text link', status: 'done', group: 'Base' },
-  { id: 'tag', name: 'Tag & count badge', status: 'review', group: 'Base' },
-  { id: 'card', name: 'Card', status: 'next', group: 'Base' },
-  { id: 'field', name: 'Text field', status: 'planned', group: 'Forms' },
+  { id: 'tag', name: 'Tag & count badge', status: 'done', group: 'Base' },
+  { id: 'card', name: 'Card', status: 'review', group: 'Base' },
+  { id: 'field', name: 'Text field', status: 'next', group: 'Forms' },
   { id: 'choice', name: 'Checkbox, radio, switch', status: 'planned', group: 'Forms' },
   { id: 'avatar', name: 'Ghost avatar', status: 'planned', group: 'Identity' },
   { id: 'tabs', name: 'Tabs', status: 'planned', group: 'Navigation' },
@@ -501,7 +516,7 @@ function TagSpec() {
     <Spec
       id="tag"
       title="Tag & count badge"
-      status="review"
+      status="done"
       summary="Small labels that can't be clicked, and the red count that says something is waiting for you. Each tone means one thing, so people learn to read them at a glance."
       use={[
         'Tag: status (Later), category (a topic), a reward (+5 DP), a premium item, a Pure Soul effect.',
@@ -604,6 +619,170 @@ function TagSpec() {
   );
 }
 
+function CardSpec() {
+  const tones: { tone: CardTone; title: string; text: string }[] = [
+    { tone: 'default', title: 'Default', text: 'Most cards: lists, panels, settings.' },
+    { tone: 'glow', title: 'Glow', text: 'Small cards in a set: topics, features, ranks.' },
+    { tone: 'feature', title: 'Feature', text: 'The one focal object of a section.' },
+    { tone: 'premium', title: 'Premium', text: 'Paid items, like the Shadow Cloak.' },
+    { tone: 'halo', title: 'Halo', text: 'Anything caused by the Pure Souls.' },
+  ];
+
+  return (
+    <Spec
+      id="card"
+      title="Card"
+      status="review"
+      summary="The one container for posts, panels, items and list rows. Five tones, two paddings, two shapes. Only cards that go somewhere lift when you hover them."
+      use={[
+        'Default for almost everything.',
+        'Glow for a set of small, equal cards.',
+        'Feature for the single object a section is about.',
+        'Premium and Halo only for paid items and Pure Soul effects.',
+        'CardWell for stats inside a card, CardFoot for extra info under a dashed line.',
+      ]}
+      avoid={[
+        'Cards inside cards: use a CardWell instead.',
+        'Lift or pointer on a card that can’t be clicked.',
+        'More than one Feature card in a section.',
+        'Custom borders, shadows or padding via className.',
+      ]}
+    >
+      <Specimen title="Tones" note="On the page background. Static: they don't move when you hover.">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {tones.map((t) => (
+            <Card key={t.tone} tone={t.tone} padding="sm">
+              <p className="font-display font-bold text-bone">{t.title}</p>
+              <p className="mt-1 text-sm text-ash">{t.text}</p>
+            </Card>
+          ))}
+        </div>
+      </Specimen>
+
+      <Specimen title="On a dusk section" note={'on="dusk": the fill steps up to plum so the card still reads as raised.'} className="atmo-dusk">
+        <div className="grid gap-4 sm:grid-cols-3">
+          <Card on="dusk" padding="sm">
+            <p className="font-display font-bold text-bone">Default</p>
+            <p className="mt-1 text-sm text-ash">Plum fill on dusk.</p>
+          </Card>
+          <Card on="dusk" tone="glow" padding="sm">
+            <p className="font-display font-bold text-bone">Glow</p>
+            <p className="mt-1 text-sm text-ash">Same edge, plum fill.</p>
+          </Card>
+          <Card on="dusk" tone="premium" padding="sm">
+            <p className="font-display font-bold text-bone">Premium</p>
+            <p className="mt-1 text-sm text-ash">Violet edge on dusk.</p>
+          </Card>
+        </div>
+      </Specimen>
+
+      <Specimen title="Clickable cards" note="Hover them: they lift, the edge brightens, and the pointer appears. Tab to see the focus ring.">
+        <div className="grid gap-4 sm:grid-cols-3">
+          <CardLink href="#card" padding="sm">
+            <p className="font-display font-bold text-bone">Confession Chamber</p>
+            <p className="mt-1 text-sm text-ash">Secrets and untold stories.</p>
+          </CardLink>
+          <CardLink href="#card" tone="glow" padding="sm">
+            <p className="font-display font-bold text-bone">Devil&apos;s Debate</p>
+            <p className="mt-1 text-sm text-ash">Defend your argument.</p>
+          </CardLink>
+          <CardLink href="#card" tone="premium" padding="sm">
+            <p className="font-display font-bold text-bone">Shadow Cloak</p>
+            <p className="mt-1 text-sm text-ash">₹99 · 3 days</p>
+          </CardLink>
+        </div>
+      </Specimen>
+
+      <Specimen title="Padding & shape" note="sm = 16px (dense lists, small cards) · md = 20–24px (panels) · row = 14px corners for list rows.">
+        <div className="grid items-start gap-4 lg:grid-cols-[1fr_1fr_1.2fr]">
+          <Card padding="sm">
+            <p className="text-sm text-bone">padding sm · 16px</p>
+          </Card>
+          <Card padding="md">
+            <p className="text-sm text-bone">padding md · 20px, 24px from tablet up</p>
+          </Card>
+          <div className="space-y-2">
+            {['Start an interesting discussion', 'Join a debate'].map((m) => (
+              <Card key={m} shape="row" padding="sm" className="flex items-center gap-3">
+                <PiScroll aria-hidden className="size-5 shrink-0 text-ember" />
+                <p className="min-w-0 flex-1 text-sm font-medium text-bone">{m}</p>
+                <Tag tone="ember">+3 DP</Tag>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </Specimen>
+
+      <Specimen title="In context" note="A post (default + foot), a profile (feature + wells), and an item (premium).">
+        <div className="grid gap-6 lg:grid-cols-3">
+          <Card as="article" padding="sm">
+            <div className="flex items-center gap-3">
+              <span aria-hidden className="flex size-10 shrink-0 items-center justify-center rounded-full bg-plum text-xl">
+                🐼
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold text-bone">MidnightPanda</p>
+                <p className="text-xs text-smoke">Trickster · 12 min</p>
+              </div>
+              <IconButton icon={PiDotsThreeBold} label="More options" variant="quiet" size="sm" />
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-bone">
+              Unpopular opinion: &ldquo;Let&apos;s stay in touch&rdquo; is the politest way to say goodbye forever.
+            </p>
+            <CardFoot className="flex items-center gap-4">
+              <span>😈 128 · 🔥 64</span>
+              <span className="ml-auto flex gap-4">
+                <Button variant="link" size="sm">
+                  Reply
+                </Button>
+              </span>
+            </CardFoot>
+          </Card>
+
+          <Card tone="feature" className="text-center">
+            <span aria-hidden className="mx-auto flex size-16 items-center justify-center rounded-full bg-plum text-3xl ring-2 ring-crimson/60">
+              🐺
+            </span>
+            <p className="mt-3 font-display text-xl font-extrabold text-bone">SHADOWWOLF</p>
+            <div className="mt-1">
+              <Tag size="sm" tone="crimson" icon={PiCrown}>
+                Archdevil
+              </Tag>
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-2 text-left">
+              <CardWell>
+                <p className="text-xs text-smoke">Dark Reputation</p>
+                <p className="font-display text-xl font-bold text-bone tabular-nums">92</p>
+              </CardWell>
+              <CardWell>
+                <p className="text-xs text-smoke">Soul Integrity</p>
+                <p className="font-display text-xl font-bold text-bone tabular-nums">76</p>
+              </CardWell>
+            </div>
+          </Card>
+
+          <Card tone="premium">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <Tag size="sm" tone="violet">
+                  Item
+                </Tag>
+                <p className="mt-2 font-display text-xl font-extrabold text-bone">Shadow Cloak</p>
+              </div>
+              <PiShieldCheck aria-hidden className="size-8 text-violet" />
+            </div>
+            <p className="mt-3 text-sm text-ash">Pauses Soul Exposure for 3 days.</p>
+            <Button fullWidth className="mt-5">
+              Get it for ₹99
+            </Button>
+            <CardFoot>Or earn one free through Dark Missions.</CardFoot>
+          </Card>
+        </div>
+      </Specimen>
+    </Spec>
+  );
+}
+
 export default function KitPage() {
   const groups = [...new Set(ROADMAP.map((r) => r.group))];
   return (
@@ -658,6 +837,7 @@ export default function KitPage() {
           <IconButtonSpec />
           <TextLinkSpec />
           <TagSpec />
+          <CardSpec />
         </main>
       </div>
     </div>

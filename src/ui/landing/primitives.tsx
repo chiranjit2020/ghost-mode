@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
 import { PiGhost } from 'react-icons/pi';
+import { Tag } from '@/ui/components';
 import { ART, type ArtSlotId } from '@/world/art';
 
 type Tone = 'void' | 'charcoal' | 'dusk' | 'ember' | 'halo' | 'hero' | 'finale';
@@ -71,11 +72,7 @@ export function Card({ children, className = '' }: { children: ReactNode; classN
 
 /** Small "arrives later" tag, so the page never promises a feature as if it exists today. */
 export function LaterTag() {
-  return (
-    <span className="rounded-full border border-line-strong px-2 py-0.5 text-[0.68rem] font-semibold tracking-wide text-smoke uppercase">
-      Later
-    </span>
-  );
+  return <Tag size="sm">Later</Tag>;
 }
 
 /**

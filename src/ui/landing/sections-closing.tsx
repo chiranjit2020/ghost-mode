@@ -13,7 +13,7 @@ import {
 import { WORLD } from '@/world/world.config';
 import { Brand } from './site-header';
 import { Accent, ArtSlot, Eyebrow, Heading, Highlight, LaterTag, Lead, Section } from './primitives';
-import { ButtonLink } from '@/ui/components';
+import { ButtonLink, Tag } from '@/ui/components';
 
 /* 11 — Missions */
 const MISSIONS = [
@@ -50,7 +50,7 @@ export function MissionsSection() {
             <li key={m.title} className="flex items-center gap-4 rounded-2xl border border-line bg-surface p-4">
               <PiScroll aria-hidden className="size-6 shrink-0 text-ember" />
               <p className="min-w-0 flex-1 text-sm font-medium text-bone">{m.title}</p>
-              <span className="shrink-0 rounded-full bg-ember/15 px-2.5 py-1 text-xs font-semibold text-ember">{m.reward}</span>
+              <Tag tone="ember">{m.reward}</Tag>
             </li>
           ))}
         </ul>

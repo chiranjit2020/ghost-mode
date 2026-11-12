@@ -96,7 +96,8 @@ body {
  * and fades to nothing toward the bottom-left. The fill is painted inside the border (padding-box) and the gradient
  * under it (border-box), so the border shows through a transparent 1px edge. --card-fill must be opaque.
  */
-.gradient-card {
+.gradient-card,
+.card-glow {
   --card-fill: var(--color-surface);
   border: 1px solid transparent;
   background:
@@ -115,12 +116,24 @@ body {
     transform 200ms ease,
     box-shadow 200ms ease;
 }
-.gradient-card--dusk {
+.gradient-card--dusk,
+.card-glow--dusk {
   --card-fill: #22162c;
 }
-.gradient-card:hover {
+/*
+ * Lift on hover = "this goes somewhere". .card-lift is only put on cards that are links (Card with href).
+ * .gradient-card is the landing's pre-kit class and still lifts until the landing moves to <Card>.
+ */
+.gradient-card:hover,
+.card-lift:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 32px -14px rgb(232 32 60 / 0.6);
+}
+.card-lift {
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease,
+    border-color 200ms ease;
 }
 
 /*
