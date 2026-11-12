@@ -122,6 +122,29 @@ body {
     linear-gradient(180deg, var(--color-plum), var(--color-void));
 }
 
+/*
+ * Small cards with a 1px theme-gradient border (ember → crimson → violet). The fill is painted inside the border
+ * (padding-box) and the gradient under it (border-box), so the border shows through a transparent 1px edge.
+ * --card-fill must be opaque.
+ */
+.gradient-card {
+  --card-fill: var(--color-surface);
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--card-fill), var(--card-fill)) padding-box,
+    linear-gradient(135deg, var(--color-ember), var(--color-crimson) 50%, var(--color-violet)) border-box;
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+.gradient-card--dusk {
+  --card-fill: #22162c;
+}
+.gradient-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px -14px rgb(232 32 60 / 0.6);
+}
+
 .text-glow {
   text-shadow: 0 0 32px rgb(232 32 60 / 0.45);
 }

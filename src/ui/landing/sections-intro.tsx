@@ -12,7 +12,7 @@ import {
 } from 'react-icons/pi';
 import type { IconType } from 'react-icons';
 import { TOPICS, WORLD } from '@/world/world.config';
-import { ArtSlot, ButtonLink, Card, Eyebrow, Heading, Highlight, LaterTag, Lead, Section } from './primitives';
+import { ArtSlot, ButtonLink, Eyebrow, Heading, Highlight, LaterTag, Lead, Section } from './primitives';
 
 /* 01 — Hero */
 export function HeroSection() {
@@ -106,7 +106,7 @@ export function ExpressionSection() {
 
       <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {TOPICS.map((t, i) => (
-          <li key={t.name} className="rounded-2xl border border-line bg-plum/50 p-5 transition hover:border-line-strong hover:bg-plum">
+          <li key={t.name} className="gradient-card gradient-card--dusk rounded-2xl p-5">
             <p className="text-xs font-semibold text-smoke tabular-nums">{String(i + 1).padStart(2, '0')}</p>
             <p className="mt-2 font-display text-base font-bold text-bone">{t.name}</p>
             <p className="mt-1 text-sm text-ash">{t.line}</p>
@@ -185,14 +185,14 @@ export function SocialSection() {
           <ul className="mt-10 grid gap-3 sm:grid-cols-2">
             {FEATURES.map(({ icon: Icon, title, text, later }) => (
               <li key={title}>
-                <Card className="h-full p-5">
+                <div className="gradient-card h-full rounded-card p-5">
                   <div className="flex items-center justify-between gap-2">
                     <Icon aria-hidden className="size-6 text-crimson" />
                     {later ? <LaterTag /> : null}
                   </div>
                   <p className="mt-3 font-display font-bold text-bone">{title}</p>
                   <p className="mt-1 text-sm text-ash">{text}</p>
-                </Card>
+                </div>
               </li>
             ))}
           </ul>
