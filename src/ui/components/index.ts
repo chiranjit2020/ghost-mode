@@ -18,6 +18,7 @@ export {
   type CardShape,
   type CardTone,
 } from './card';
+export { Checkbox, RadioGroup, Switch } from './choice';
 export { CountBadge } from './count-badge';
 export { Spinner } from './spinner';
 export { Tag, type TagSize, type TagTone } from './tag';

@@ -163,6 +163,17 @@ body {
   .btn-fire:hover {
     box-shadow: 0 10px 34px -6px rgb(232 32 60 / 0.85);
   }
+
+  /* Switch track: fire when on ("live now"), neutral grey when disabled, whatever its state. */
+  input:checked + .switch-track {
+    background-image: linear-gradient(135deg, var(--color-ember), var(--color-crimson) 35%, var(--color-crimson-deep));
+    border-color: transparent;
+  }
+  input:disabled + .switch-track {
+    background-image: none;
+    background-color: var(--color-disabled);
+    border-color: transparent;
+  }
 }
 
 /* Rank cards glow brighter as the rank rises (data-tier 1–8). */

@@ -34,9 +34,12 @@ import {
   CardFoot,
   CardLink,
   CardWell,
+  Checkbox,
   CountBadge,
   IconButton,
   IconButtonLink,
+  RadioGroup,
+  Switch,
   Tag,
   TextArea,
   TextField,
@@ -61,9 +64,9 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'text-link', name: 'Text link', status: 'done', group: 'Base' },
   { id: 'tag', name: 'Tag & count badge', status: 'done', group: 'Base' },
   { id: 'card', name: 'Card', status: 'done', group: 'Base' },
-  { id: 'field', name: 'Text field', status: 'review', group: 'Forms' },
-  { id: 'choice', name: 'Checkbox, radio, switch', status: 'next', group: 'Forms' },
-  { id: 'avatar', name: 'Ghost avatar', status: 'planned', group: 'Identity' },
+  { id: 'field', name: 'Text field', status: 'done', group: 'Forms' },
+  { id: 'choice', name: 'Checkbox, radio, switch', status: 'review', group: 'Forms' },
+  { id: 'avatar', name: 'Ghost avatar', status: 'next', group: 'Identity' },
   { id: 'tabs', name: 'Tabs', status: 'planned', group: 'Navigation' },
   { id: 'menu', name: 'Menu', status: 'planned', group: 'Navigation' },
   { id: 'dialog', name: 'Dialog & sheet', status: 'planned', group: 'Overlays' },
@@ -790,7 +793,7 @@ function FieldSpec() {
     <Spec
       id="field"
       title="Text field"
-      status="review"
+      status="done"
       summary="A labelled box for typing, with one message line underneath for the hint, the error or a confirmation. Built so a form never jumps or guesses."
       use={[
         'TextField for one line: names, email, password, search.',
@@ -860,6 +863,98 @@ function FieldSpec() {
   );
 }
 
+function ChoiceSpec() {
+  return (
+    <Spec
+      id="choice"
+      title="Checkbox, radio, switch"
+      status="review"
+      summary="Three ways to choose. Each has one job, and the whole row, label included, is the thing you tap."
+      use={[
+        'Checkbox: choose any number, or agree to something. Applies when the form is sent.',
+        'Radio: choose exactly one of 2–5 options, all visible at once.',
+        'Switch: turn a setting on or off right away, no Save button.',
+      ]}
+      avoid={[
+        'A switch inside a form that still needs a Save button: use a checkbox.',
+        'Radios for more than 5 options: use a menu (coming later).',
+        'A single radio button on its own.',
+      ]}
+    >
+      <Specimen title="Checkbox" note="Click the labels too: the whole row toggles. Tab and press Space.">
+        <div className="grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
+          <Checkbox label="Unchecked" />
+          <Checkbox label="Checked" defaultChecked />
+          <Checkbox label="Some selected" description="For a “select all” box." indeterminate />
+          <Checkbox label="Disabled" disabled />
+          <Checkbox label="Disabled, checked" disabled defaultChecked />
+          <Checkbox label="I'm 18 or older" error="You must be 18 or older to enter the Dark World." />
+        </div>
+      </Specimen>
+
+      <Specimen title="Radio group" note="A question (the legend) and 2–5 answers. Arrow keys move between them.">
+        <div className="grid gap-8 md:grid-cols-2">
+          <RadioGroup
+            legend="Who can send you Hell Chat messages?"
+            name="kit-dm"
+            defaultValue="following"
+            options={[
+              { value: 'everyone', label: 'Every Ghost' },
+              { value: 'following', label: 'Ghosts you follow', description: 'Recommended while you’re new.' },
+              { value: 'nobody', label: 'Nobody' },
+            ]}
+          />
+          <RadioGroup
+            legend="Show your rank on posts?"
+            name="kit-rank"
+            error="Choose one to continue."
+            options={[
+              { value: 'yes', label: 'Yes, show it' },
+              { value: 'no', label: 'No, keep it hidden' },
+              { value: 'later', label: 'From Archdevil up', description: 'Arrives with ranks in Level 3.', disabled: true },
+            ]}
+          />
+        </div>
+      </Specimen>
+
+      <Specimen title="Switch" note="Off is grey, on is fire: “this is live now”. Disabled is grey either way.">
+        <div className="grid gap-x-8 sm:grid-cols-2">
+          <Switch label="Off" />
+          <Switch label="On" defaultChecked />
+          <Switch label="Disabled, off" disabled />
+          <Switch label="Disabled, on" disabled defaultChecked />
+        </div>
+      </Specimen>
+
+      <Specimen title="In context" note="A settings card (switches take effect at once) and the end of sign-up (checkboxes sent with the form).">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <Card>
+            <p className="font-display text-lg font-bold text-bone">Notifications</p>
+            <div className="mt-2 divide-y divide-line">
+              <Switch label="Replies to my posts" description="When another Ghost replies to you." defaultChecked />
+              <Switch label="Rewards" description="When the darkness grants you Devil Points." defaultChecked />
+              <Switch label="Pure Soul visits" description="Know the moment something notices you." />
+            </div>
+          </Card>
+          <Card>
+            <p className="font-display text-lg font-bold text-bone">Almost there</p>
+            <div className="mt-2">
+              <Checkbox label="I'm 18 or older" defaultChecked />
+              <Checkbox
+                label="I agree to the rules"
+                description="No threats, no harassment, no sharing anyone's private information."
+              />
+            </div>
+            <Button fullWidth className="mt-4">
+              Enter the Dark World
+            </Button>
+          </Card>
+        </div>
+      </Specimen>
+    </Spec>
+  );
+}
+
 export default function KitPage() {
   const groups = [...new Set(ROADMAP.map((r) => r.group))];
   return (
@@ -916,6 +1011,7 @@ export default function KitPage() {
           <TagSpec />
           <CardSpec />
           <FieldSpec />
+          <ChoiceSpec />
         </main>
       </div>
     </div>
