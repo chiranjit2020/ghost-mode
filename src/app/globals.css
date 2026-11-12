@@ -1,0 +1,193 @@
+@import 'tailwindcss';
+
+/*
+ * Ghost Mode design tokens (docs/draft.md Q12 "design system"). Tailwind's built-in palette is switched off so only
+ * these names exist: a class like text-white compiles to nothing on purpose.
+ */
+@theme {
+  --color-*: initial;
+
+  --color-void: #09080c; /* page background, near-black */
+  --color-charcoal: #121016; /* alternate section */
+  --color-dusk: #1a1222; /* dark purple section */
+  --color-plum: #261832; /* raised surface on dusk */
+  --color-surface: #18151d; /* raised surface on void/charcoal */
+  --color-surface-2: #221e28;
+
+  --color-crimson: #e8203c; /* primary accent */
+  --color-crimson-deep: #a3122a;
+  --color-ember: #ff7a1a; /* fiery highlight */
+  --color-violet: #8f5cff; /* secondary accent */
+  --color-halo: #f3dc9a; /* Pure Souls: white-gold */
+
+  --color-bone: #f5f2f8; /* main text */
+  --color-ash: #a7a1b2; /* secondary text */
+  --color-smoke: #6f6879; /* tertiary text */
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.14);
+  --color-ink: #09080c; /* text on bright buttons */
+
+  --font-sans: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), var(--font-google-sans), ui-sans-serif, sans-serif;
+
+  --radius-card: 20px;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
+}
+
+body {
+  background: var(--color-void);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+
+::selection {
+  background: var(--color-crimson);
+  color: var(--color-bone);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ember);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Atmospheres (section backgrounds) ---------- */
+
+.atmo-hero {
+  background:
+    radial-gradient(60% 50% at 50% 100%, rgb(232 32 60 / 0.28), transparent 70%),
+    radial-gradient(45% 40% at 85% 10%, rgb(143 92 255 / 0.22), transparent 70%),
+    radial-gradient(35% 35% at 10% 30%, rgb(143 92 255 / 0.12), transparent 70%),
+    var(--color-void);
+}
+
+.atmo-dusk {
+  background:
+    radial-gradient(50% 60% at 100% 0%, rgb(143 92 255 / 0.14), transparent 70%),
+    var(--color-dusk);
+}
+
+.atmo-ember {
+  background:
+    radial-gradient(55% 55% at 0% 100%, rgb(255 122 26 / 0.12), transparent 70%),
+    var(--color-charcoal);
+}
+
+.atmo-halo {
+  background:
+    radial-gradient(45% 55% at 50% 0%, rgb(243 220 154 / 0.14), transparent 70%),
+    var(--color-void);
+}
+
+.atmo-finale {
+  background:
+    radial-gradient(70% 60% at 50% 110%, rgb(232 32 60 / 0.35), transparent 70%),
+    radial-gradient(40% 40% at 50% 0%, rgb(143 92 255 / 0.16), transparent 70%),
+    var(--color-void);
+}
+
+/* Art slots before the artwork exists: an atmosphere panel, not a grey box. */
+.art-panel {
+  background:
+    radial-gradient(70% 60% at 30% 100%, rgb(232 32 60 / 0.32), transparent 70%),
+    radial-gradient(60% 60% at 80% 0%, rgb(143 92 255 / 0.3), transparent 70%),
+    linear-gradient(160deg, var(--color-plum), var(--color-void));
+}
+.art-panel--halo {
+  background:
+    radial-gradient(60% 60% at 50% 0%, rgb(243 220 154 / 0.35), transparent 70%),
+    radial-gradient(60% 50% at 50% 100%, rgb(143 92 255 / 0.25), transparent 70%),
+    linear-gradient(180deg, var(--color-plum), var(--color-void));
+}
+
+.text-glow {
+  text-shadow: 0 0 32px rgb(232 32 60 / 0.45);
+}
+
+.gradient-ink {
+  background: linear-gradient(90deg, var(--color-ember), var(--color-crimson) 55%, var(--color-violet));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-fire {
+  background: linear-gradient(135deg, var(--color-ember), var(--color-crimson) 60%, var(--color-crimson-deep));
+  box-shadow: 0 8px 28px -8px rgb(232 32 60 / 0.65);
+}
+.btn-fire:hover {
+  box-shadow: 0 10px 34px -6px rgb(232 32 60 / 0.85);
+}
+
+/* Rank cards glow brighter as the rank rises (data-tier 1–8). */
+.rank-card {
+  --glow: 0;
+  box-shadow: 0 0 calc(var(--glow) * 5px) calc(var(--glow) * -1px) rgb(232 32 60 / calc(var(--glow) * 0.07));
+}
+.rank-card[data-tier='2'] { --glow: 1; }
+.rank-card[data-tier='3'] { --glow: 2; }
+.rank-card[data-tier='4'] { --glow: 3; }
+.rank-card[data-tier='5'] { --glow: 4; }
+.rank-card[data-tier='6'] { --glow: 5; }
+.rank-card[data-tier='7'] { --glow: 6; }
+.rank-card[data-tier='8'] { --glow: 8; }
+
+/* Exposure bar fill widths (no inline styles: the Level 1 CSP forbids them). */
+.fill-0 { width: 0%; }
+.fill-20 { width: 20%; }
+.fill-40 { width: 40%; }
+.fill-60 { width: 60%; }
+.fill-80 { width: 80%; }
+.fill-100 { width: 100%; }
+
+.exposure-fill {
+  background: linear-gradient(90deg, var(--color-crimson), var(--color-violet) 60%, var(--color-halo));
+  transition: width 400ms ease;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.float {
+  animation: float 5s ease-in-out infinite;
+}
+
+@keyframes reveal-pop {
+  0% { transform: scale(0.85); opacity: 0; }
+  60% { transform: scale(1.06); opacity: 1; }
+  100% { transform: scale(1); }
+}
+.reveal-pop {
+  animation: reveal-pop 420ms ease-out;
+}
+
+/* Phone menu: <details> needs no JavaScript. */
+.menu summary::-webkit-details-marker {
+  display: none;
+}
+.menu summary {
+  list-style: none;
+}
