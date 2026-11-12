@@ -1,0 +1,55 @@
+/*
+ * Ghost Mode design tokens. ONE token per design decision: components use these names, never raw values.
+ * Changing a decision = changing one line here, and every component follows (the lesson from Howdy, where the
+ * same look was re-decided page by page).
+ *
+ * Tailwind's built-in palette is switched off, so only these colours exist: text-white compiles to nothing on purpose.
+ * Shown and explained on /kit.
+ */
+@theme {
+  --color-*: initial;
+
+  /* Backgrounds, darkest to lightest */
+  --color-void: #09080c; /* page */
+  --color-charcoal: #121016; /* alternate section */
+  --color-dusk: #1a1222; /* purple section */
+  --color-surface: #18151d; /* raised: cards, inputs, secondary buttons */
+  --color-surface-2: #221e28; /* raised + hover */
+  --color-plum: #261832; /* raised on a dusk section */
+
+  /* Brand */
+  --color-crimson: #e8203c; /* primary accent */
+  --color-crimson-deep: #a3122a;
+  --color-ember: #ff7a1a; /* fire highlight */
+  --color-violet: #8f5cff; /* secondary accent */
+  --color-halo: #f3dc9a; /* Pure Souls only: white-gold */
+
+  /* Text */
+  --color-bone: #f5f2f8; /* main */
+  --color-ash: #a7a1b2; /* secondary */
+  --color-smoke: #6f6879; /* tertiary, hints */
+  --color-ink: #09080c; /* on bright fills (halo, bone) */
+
+  /* Roles */
+  --color-link: #c4a8ff; /* text links: 9:1 on void */
+  --color-danger: #c8102e; /* irreversible actions only (delete, leave) */
+  --color-danger-hover: #dc1836;
+  --color-disabled: #1f1c24; /* disabled fill: neutral grey, never a faded brand colour */
+  --color-on-disabled: #5f5968; /* disabled text/icon */
+
+  /* Lines */
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.14);
+
+  /* Type */
+  --font-sans: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-manrope), var(--font-google-sans), ui-sans-serif, sans-serif;
+  --font-accent: var(--font-playfair), ui-serif, Georgia, serif;
+  --text-button: 0.9375rem; /* 15px */
+  --text-button--line-height: 1.25rem;
+
+  /* Shape */
+  --radius-card: 20px; /* cards, panels, art */
+  --radius-field: 14px; /* inputs, list rows */
+  /* Buttons, chips and tags are fully round (rounded-full). */
+}
