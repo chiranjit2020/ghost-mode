@@ -12,7 +12,7 @@ import {
 } from 'react-icons/pi';
 import { WORLD } from '@/world/world.config';
 import { Brand } from './site-header';
-import { ArtSlot, ButtonLink, Eyebrow, Heading, Highlight, LaterTag, Lead, Section } from './primitives';
+import { Accent, ArtSlot, ButtonLink, Eyebrow, Heading, Highlight, LaterTag, Lead, Section } from './primitives';
 
 /* 11 — Missions */
 const MISSIONS = [
@@ -35,7 +35,9 @@ export function MissionsSection() {
               <LaterTag />
             </span>
           </div>
-          <Heading>What kind of Devil will you be today?</Heading>
+          <Heading>
+            What kind of <Accent>Devil</Accent> will you be today?
+          </Heading>
           <Lead className="mt-6">
             Every day brings new missions. Complete them for rewards, achievements and exclusive items, including the
             pieces of a free Shadow Cloak.
@@ -78,7 +80,9 @@ export function LeaderboardSection() {
               <LaterTag />
             </span>
           </div>
-          <Heading>Who rules the Underworld?</Heading>
+          <Heading>
+            Who <Accent>rules</Accent> the Underworld?
+          </Heading>
           <Lead className="mt-6">Every Devil wants recognition. Compete with other spirits and climb the rankings.</Lead>
           <ul className="mt-8 grid gap-2 sm:grid-cols-2">
             {BOARDS.map((b) => (
@@ -111,7 +115,9 @@ export function SafetySection() {
       <div className="grid items-start gap-12 lg:grid-cols-[0.8fr_1fr]">
         <div>
           <Eyebrow tone="halo">Your identity stays yours</Eyebrow>
-          <Heading>Hide your identity. Not your responsibility.</Heading>
+          <Heading>
+            Hide your <Accent>identity</Accent>. Not your responsibility.
+          </Heading>
           <Lead className="mt-6">
             The Dark World gives you the freedom to express yourself without showing who you are. That freedom comes with
             a few rules that protect every spirit, including you.
@@ -142,7 +148,7 @@ export function FinaleSection() {
           <Eyebrow>Your dark journey starts here</Eyebrow>
         </div>
         <Heading>
-          The world doesn&apos;t know your name.
+          The world doesn&apos;t know your <Accent>name</Accent>.
           <span className="block gradient-ink">That&apos;s exactly the point.</span>
         </Heading>
         <Lead className="mx-auto mt-6">

@@ -1,11 +1,19 @@
 import type { Metadata, Viewport } from 'next';
-import { Google_Sans, Manrope } from 'next/font/google';
+import { Google_Sans, Manrope, Playfair_Display } from 'next/font/google';
 import type { ReactNode } from 'react';
 import { WORLD } from '@/world/world.config';
 import './globals.css';
 
 const googleSans = Google_Sans({ subsets: ['latin'], variable: '--font-google-sans', display: 'swap' });
 const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope', display: 'swap', weight: ['600', '700', '800'] });
+// Keywords inside headings only (<Accent>), so just the italic face is loaded.
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  display: 'swap',
+  style: 'italic',
+  weight: ['600', '700'],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.APP_URL ?? 'http://localhost:3000'),
@@ -24,7 +32,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en-IN" className={`${googleSans.variable} ${manrope.variable}`}>
+    <html lang="en-IN" className={`${googleSans.variable} ${manrope.variable} ${playfair.variable}`}>
       <body>{children}</body>
     </html>
   );

@@ -1,5 +1,5 @@
 import { PiCheck, PiClockCountdown, PiEye, PiShieldCheck } from 'react-icons/pi';
-import { ArtSlot, ButtonLink, Eyebrow, Heading, Lead, Section } from './primitives';
+import { Accent, ArtSlot, ButtonLink, Eyebrow, Heading, Lead, Section } from './primitives';
 import { ExposureMeter } from './exposure-meter';
 
 /* 08 — Pure Souls */
@@ -9,7 +9,9 @@ export function PureSoulsSection() {
       <div className="grid items-center gap-12 lg:grid-cols-2">
         <div>
           <Eyebrow tone="halo">The hunt has begun</Eyebrow>
-          <Heading>You are not alone in the Underworld.</Heading>
+          <Heading>
+            You are not <Accent>alone</Accent> in the Underworld.
+          </Heading>
           <Lead className="mt-6">
             Deep inside the Dark World, mysterious beings known as Pure Souls are watching. Nobody knows when one will
             appear, or which Devil will draw its attention. They don&apos;t compete for Devil Points. They have a
@@ -42,7 +44,9 @@ export function ExposureSection() {
       <div className="grid items-center gap-12 lg:grid-cols-2">
         <div>
           <Eyebrow tone="halo">Your soul is at risk</Eyebrow>
-          <Heading>The longer they watch, the weaker you become.</Heading>
+          <Heading>
+            The longer they <Accent>watch</Accent>, the weaker you become.
+          </Heading>
           <Lead className="mt-6">
             As your Soul Exposure climbs, your Devil changes. Keep an eye on your Soul Integrity, protect what you&apos;ve
             built and be ready for the visit you didn&apos;t see coming.
@@ -68,7 +72,9 @@ export function CloakSection() {
       <div className="grid items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
         <div>
           <Eyebrow tone="violet">A little dark magic</Eyebrow>
-          <Heading>Not ready to lose your powers?</Heading>
+          <Heading>
+            Not ready to lose your <Accent>powers</Accent>?
+          </Heading>
           <Lead className="mt-6">
             Even the most powerful Devils need cover sometimes. The Shadow Cloak wraps your Devil in darkness and hides
             it from the hunters for a while.

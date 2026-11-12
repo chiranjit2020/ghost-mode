@@ -29,6 +29,7 @@
 
   --font-sans: var(--font-google-sans), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-manrope), var(--font-google-sans), ui-sans-serif, sans-serif;
+  --font-accent: var(--font-playfair), ui-serif, Georgia, serif;
 
   --radius-card: 20px;
 }
@@ -152,6 +153,19 @@ body {
 .gradient-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 32px -14px rgb(232 32 60 / 0.6);
+}
+
+/*
+ * The keyword in a heading: Playfair Display italic. Playfair's letters sit smaller than Manrope's, so it is nudged up
+ * a touch; the tight display tracking is undone because a serif italic needs its own spacing.
+ */
+.accent {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.08em;
+  letter-spacing: 0;
+  padding-right: 0.02em; /* the italic's last letter leans past its box; more leaves a gap before punctuation */
 }
 
 .text-glow {

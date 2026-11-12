@@ -1,6 +1,6 @@
 import { PiCrown, PiLightning } from 'react-icons/pi';
 import { HALO, RANKS, REACTIONS } from '@/world/world.config';
-import { ArtSlot, ButtonLink, Eyebrow, Heading, Highlight, Lead, Section } from './primitives';
+import { Accent, ArtSlot, ButtonLink, Eyebrow, Heading, Highlight, Lead, Section } from './primitives';
 import { ReactionMystery } from './reaction-mystery';
 
 /* 05 — Devil Points */
@@ -20,8 +20,10 @@ export function PointsSection() {
         <div>
           <Eyebrow tone="violet">Power is earned</Eyebrow>
           <Heading>
-            Every Devil wants more power.
-            <span className="block text-ash">But nobody knows when it comes.</span>
+            Every Devil wants more <Accent>power</Accent>.
+            <span className="block text-ash">
+              But nobody knows <Accent>when</Accent> it comes.
+            </span>
           </Heading>
           <Lead className="mt-6">
             Welcome to the mysterious economy of the Underworld. Your activity can earn Devil Points (DP), the currency of
@@ -87,7 +89,9 @@ export function RanksSection() {
       <div className="grid items-start gap-12 lg:grid-cols-[1fr_0.6fr]">
         <div>
           <Eyebrow>Rise through the darkness</Eyebrow>
-          <Heading>From a Lost Soul to the Dark Lord.</Heading>
+          <Heading>
+            From a <Accent>Lost Soul</Accent> to the <Accent>Dark Lord</Accent>.
+          </Heading>
           <Lead className="mt-6">
             Every Devil begins somewhere. Collect points and unlock achievements to rise through the ranks, and earn the
             avatars, frames, animations and titles that come with them.
@@ -126,7 +130,9 @@ export function EmojiSection() {
         <div className="flex justify-center">
           <Eyebrow tone="violet">React differently</Eyebrow>
         </div>
-        <Heading>Ordinary reactions are boring.</Heading>
+        <Heading>
+          Ordinary reactions are <Accent>boring</Accent>.
+        </Heading>
         <Lead className="mx-auto mt-6">
           Why settle for likes and hearts? Express your personality with a collection of devilish reactions.
         </Lead>

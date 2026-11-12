@@ -51,6 +51,11 @@ export function Heading({ children, as: Tag = 'h2', className = '' }: { children
   return <Tag className={`font-display font-extrabold tracking-tight text-balance text-bone ${size} ${className}`}>{children}</Tag>;
 }
 
+/** A heading's keyword, set in Playfair Display italic. */
+export function Accent({ children }: { children: ReactNode }) {
+  return <em className="accent">{children}</em>;
+}
+
 export function Lead({ children, className = '' }: { children: ReactNode; className?: string }) {
   return <p className={`max-w-xl text-base leading-relaxed text-pretty text-ash sm:text-lg ${className}`}>{children}</p>;
 }

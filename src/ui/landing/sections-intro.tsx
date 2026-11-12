@@ -12,7 +12,7 @@ import {
 } from 'react-icons/pi';
 import type { IconType } from 'react-icons';
 import { TOPICS, WORLD } from '@/world/world.config';
-import { ArtSlot, ButtonLink, Eyebrow, Heading, Highlight, LaterTag, Lead, Section } from './primitives';
+import { Accent, ArtSlot, ButtonLink, Eyebrow, Heading, Highlight, LaterTag, Lead, Section } from './primitives';
 
 /* 01 — Hero */
 export function HeroSection() {
@@ -22,8 +22,10 @@ export function HeroSection() {
         <div>
           <Eyebrow>Welcome to {WORLD.brand}</Eyebrow>
           <Heading as="h1">
-            Your halo is safe outside.
-            <span className="mt-1 block gradient-ink">Unleash your devil inside.</span>
+            Your <Accent>halo</Accent> is safe outside.
+            <span className="mt-1 block gradient-ink">
+              Unleash your <Accent>devil</Accent> inside.
+            </span>
           </Heading>
           <Lead className="mt-6">
             You don&apos;t need your real name. You don&apos;t need your photograph. Nobody here needs to know who you
@@ -62,7 +64,9 @@ export function IdentitySection() {
         <ArtSlot id="identity" className="order-last lg:order-first" />
         <div>
           <Eyebrow>Your identity, your choice</Eyebrow>
-          <Heading>Who you are outside doesn&apos;t matter here.</Heading>
+          <Heading>
+            Who you are <Accent>outside</Accent> doesn&apos;t matter here.
+          </Heading>
           <Lead className="mt-6">
             Why should your real-world identity define your virtual personality? Leave your everyday self behind and
             become someone entirely different.
@@ -95,7 +99,9 @@ export function ExpressionSection() {
       <div className="grid items-end gap-10 lg:grid-cols-[1fr_0.9fr]">
         <div>
           <Eyebrow tone="violet">No more holding back</Eyebrow>
-          <Heading>What would you say if nobody knew it was you?</Heading>
+          <Heading>
+            What would you say if <Accent>nobody</Accent> knew it was you?
+          </Heading>
           <Lead className="mt-6">
             Your unpopular opinions. Your embarrassing confessions. Your controversial thoughts. Your darkest humour.
             Speak your mind, question everything and laugh at the absurdities of life.
@@ -177,7 +183,9 @@ export function SocialSection() {
       <div className="grid items-start gap-12 lg:grid-cols-[1fr_0.85fr]">
         <div>
           <Eyebrow>The Underworld is alive</Eyebrow>
-          <Heading>Don&apos;t just watch. Stir things up.</Heading>
+          <Heading>
+            Don&apos;t just watch. <Accent>Stir</Accent> things up.
+          </Heading>
           <Lead className="mt-6">
             The Dark World isn&apos;t a place to sit silently and scroll. Publish your thoughts, react to other spirits,
             challenge their opinions. Every interaction builds your presence.
