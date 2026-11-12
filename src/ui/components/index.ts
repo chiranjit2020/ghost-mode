@@ -8,5 +8,7 @@ export {
   type IconButtonSize,
   type IconButtonVariant,
 } from './icon-button';
+export { CountBadge } from './count-badge';
 export { Spinner } from './spinner';
+export { Tag, type TagSize, type TagTone } from './tag';
 export { TextLink, type TextLinkTone } from './text-link';

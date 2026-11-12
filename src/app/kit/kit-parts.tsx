@@ -1,21 +1,17 @@
 import type { ReactNode } from 'react';
 import { cn } from '@/ui/cn';
+import { Tag, type TagTone } from '@/ui/components';
 
 export type Status = 'done' | 'review' | 'next' | 'planned';
 
 const STATUS_LABEL: Record<Status, string> = { done: 'Approved', review: 'In review', next: 'Next', planned: 'Planned' };
-const STATUS_LOOK: Record<Status, string> = {
-  done: 'bg-bone text-ink',
-  review: 'bg-ember/15 text-ember',
-  next: 'border border-line-strong text-ash',
-  planned: 'text-smoke',
-};
+const STATUS_TONE: Record<Status, TagTone> = { done: 'solid', review: 'ember', next: 'neutral', planned: 'neutral' };
 
 export function StatusTag({ status }: { status: Status }) {
   return (
-    <span className={cn('rounded-full px-2 py-0.5 text-[0.68rem] font-semibold tracking-wide uppercase', STATUS_LOOK[status])}>
+    <Tag size="sm" tone={STATUS_TONE[status]}>
       {STATUS_LABEL[status]}
-    </span>
+    </Tag>
   );
 }
 

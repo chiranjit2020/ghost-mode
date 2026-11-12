@@ -4,7 +4,12 @@ import {
   PiArrowRight,
   PiBell,
   PiBookmarkSimple,
+  PiChatsCircle,
+  PiCrown,
   PiDiceFive,
+  PiEye,
+  PiLightning,
+  PiSparkle,
   PiDotsThreeBold,
   PiGear,
   PiImage,
@@ -20,7 +25,8 @@ import {
 } from 'react-icons/pi';
 import { Brand } from '@/ui/landing/site-header';
 import { Accent } from '@/ui/landing/primitives';
-import { Button, ButtonLink, IconButton, IconButtonLink, TextLink } from '@/ui/components';
+import type { IconType } from 'react-icons';
+import { Button, ButtonLink, CountBadge, IconButton, IconButtonLink, Tag, TextLink, type TagTone } from '@/ui/components';
 import { Spec, Specimen, StateGrid, StatusTag, type Status } from './kit-parts';
 import { Swatch } from './swatch';
 
@@ -35,9 +41,9 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'foundations', name: 'Foundations', status: 'done', group: 'Base' },
   { id: 'button', name: 'Button', status: 'done', group: 'Base' },
   { id: 'icon-button', name: 'Icon button', status: 'done', group: 'Base' },
-  { id: 'text-link', name: 'Text link', status: 'review', group: 'Base' },
-  { id: 'tag', name: 'Tag & count badge', status: 'next', group: 'Base' },
-  { id: 'card', name: 'Card', status: 'planned', group: 'Base' },
+  { id: 'text-link', name: 'Text link', status: 'done', group: 'Base' },
+  { id: 'tag', name: 'Tag & count badge', status: 'review', group: 'Base' },
+  { id: 'card', name: 'Card', status: 'next', group: 'Base' },
   { id: 'field', name: 'Text field', status: 'planned', group: 'Forms' },
   { id: 'choice', name: 'Checkbox, radio, switch', status: 'planned', group: 'Forms' },
   { id: 'avatar', name: 'Ghost avatar', status: 'planned', group: 'Identity' },
@@ -405,7 +411,7 @@ function TextLinkSpec() {
     <Spec
       id="text-link"
       title="Text link"
-      status="review"
+      status="done"
       summary="A link inside text. Always underlined, so it's never told apart by colour alone, which also helps people who don't see colour well."
       use={[
         'Default: links inside sentences and paragraphs.',
@@ -481,6 +487,123 @@ function TextLinkSpec() {
   );
 }
 
+function TagSpec() {
+  const tones: { tone: TagTone; meaning: string; sm: string; md: string; icon?: IconType }[] = [
+    { tone: 'neutral', meaning: 'Status, category', sm: 'Later', md: 'Confessions' },
+    { tone: 'crimson', meaning: 'Brand labels', sm: 'Ghost Mode', md: 'Dark World' },
+    { tone: 'ember', meaning: 'Rewards, points', sm: 'Reward', md: '+5 DP', icon: PiLightning },
+    { tone: 'violet', meaning: 'Paid, premium', sm: 'Premium', md: 'Shadow Cloak', icon: PiShieldCheck },
+    { tone: 'halo', meaning: 'Pure Souls', sm: 'Purified', md: 'A Pure Soul visited', icon: PiEye },
+    { tone: 'solid', meaning: 'One strong emphasis', sm: 'New', md: 'Season 1', icon: PiSparkle },
+  ];
+
+  return (
+    <Spec
+      id="tag"
+      title="Tag & count badge"
+      status="review"
+      summary="Small labels that can't be clicked, and the red count that says something is waiting for you. Each tone means one thing, so people learn to read them at a glance."
+      use={[
+        'Tag: status (Later), category (a topic), a reward (+5 DP), a premium item, a Pure Soul effect.',
+        'Count badge: unread messages, new notifications, friend requests.',
+        'Count badge as a dot: “something new”, when the number doesn’t matter.',
+      ]}
+      avoid={[
+        'Tags as buttons or filters: use a Button or (later) a chip.',
+        'Red for anything but “waiting for you”: not errors, not decoration.',
+        'More than one solid tag in a group.',
+      ]}
+    >
+      <Specimen title="Tag tones" note="sm = uppercase status label · md = normal label, optional icon.">
+        <StateGrid
+          columns={['Means', 'Small', 'Medium', 'Medium + icon']}
+          rows={tones.map((t) => ({
+            label: t.tone[0].toUpperCase() + t.tone.slice(1),
+            cells: [
+              <span key="m" className="text-sm text-ash">
+                {t.meaning}
+              </span>,
+              <Tag key="s" tone={t.tone} size="sm">
+                {t.sm}
+              </Tag>,
+              <Tag key="d" tone={t.tone}>
+                {t.md}
+              </Tag>,
+              <Tag key="i" tone={t.tone} icon={t.icon ?? PiCrown}>
+                {t.md}
+              </Tag>,
+            ],
+          }))}
+        />
+      </Specimen>
+
+      <Specimen title="Count badge" note="0 shows nothing · over 99 shows 99+ · a dot when the number doesn't matter.">
+        <div className="flex flex-wrap items-center gap-6">
+          <div className="flex items-center gap-3">
+            <CountBadge value={1} />
+            <CountBadge value={9} />
+            <CountBadge value={42} />
+            <CountBadge value={120} />
+            <CountBadge value="dot" />
+          </div>
+          <span className="h-8 w-px bg-line" aria-hidden />
+          <div className="flex items-center gap-4">
+            <IconButton icon={PiBell} label="Notifications" badge={3} />
+            <IconButton icon={PiChatsCircle} label="Messages" badge={120} />
+            <IconButton icon={PiBell} label="Notifications" variant="quiet" badge="dot" />
+            <IconButton icon={PiBell} label="Notifications" variant="quiet" badge={0} />
+          </div>
+        </div>
+        <p className="mt-4 text-xs text-smoke">
+          Screen readers hear the count as part of the button: &ldquo;Notifications, 3 new&rdquo;.
+        </p>
+      </Specimen>
+
+      <Specimen title="In context" note="A post's meta line, a mission row, and a header.">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="space-y-4">
+            <div className="rounded-card border border-line bg-surface p-4">
+              <div className="flex items-center gap-3">
+                <span aria-hidden className="flex size-10 shrink-0 items-center justify-center rounded-full bg-plum text-xl">
+                  🐺
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="flex flex-wrap items-center gap-2 font-semibold text-bone">
+                    ShadowWolf <Tag size="sm" tone="crimson">Archdevil</Tag>
+                  </p>
+                  <p className="text-xs text-smoke">2 h</p>
+                </div>
+                <Tag>Confessions</Tag>
+              </div>
+              <p className="mt-3 text-sm text-bone">I still have the receipt for a gift I never gave.</p>
+            </div>
+            <div className="flex items-center gap-4 rounded-field border border-line bg-surface p-4">
+              <p className="min-w-0 flex-1 text-sm font-medium text-bone">Answer the Daily Devil Question</p>
+              <Tag tone="ember" icon={PiLightning}>
+                Mystery
+              </Tag>
+            </div>
+          </div>
+          <div className="space-y-4">
+            <div className="flex items-center gap-3 rounded-card border border-line bg-surface px-4 py-2">
+              <p className="flex-1 font-display font-bold text-bone">Dark World</p>
+              <IconButton icon={PiChatsCircle} label="Messages" variant="quiet" badge={4} />
+              <IconButton icon={PiBell} label="Notifications" variant="quiet" badge="dot" />
+            </div>
+            <div className="flex items-center gap-3 rounded-field border border-halo/30 bg-surface p-4">
+              <PiEye aria-hidden className="size-5 shrink-0 text-halo" />
+              <p className="min-w-0 flex-1 text-sm text-bone">Something has noticed you.</p>
+              <Tag size="sm" tone="halo">
+                20%
+              </Tag>
+            </div>
+          </div>
+        </div>
+      </Specimen>
+    </Spec>
+  );
+}
+
 export default function KitPage() {
   const groups = [...new Set(ROADMAP.map((r) => r.group))];
   return (
@@ -534,6 +657,7 @@ export default function KitPage() {
           <ButtonSpec />
           <IconButtonSpec />
           <TextLinkSpec />
+          <TagSpec />
         </main>
       </div>
     </div>

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { ButtonHTMLAttributes } from 'react';
 import type { IconType } from 'react-icons';
 import { cn } from '../cn';
+import { badgeLabel, CountBadge } from './count-badge';
 import { Spinner } from './spinner';
 
 /**
@@ -79,6 +80,7 @@ export function IconButton({
   size = 'md',
   pressed,
   loading = false,
+  badge,
   className,
   type = 'button',
   onClick,
@@ -87,19 +89,24 @@ export function IconButton({
   /** Makes this a toggle. Leave undefined for a normal button. */
   pressed?: boolean;
   loading?: boolean;
+  /** Unread count (or 'dot') shown on the corner; also added to the screen-reader label. */
+  badge?: number | 'dot';
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children' | 'className' | 'aria-label' | 'aria-pressed'>) {
   return (
     <button
       type={loading && type === 'submit' ? 'button' : type}
-      aria-label={label}
+      aria-label={label + badgeLabel(badge)}
       aria-pressed={pressed}
       aria-busy={loading || undefined}
       aria-disabled={loading || undefined}
       onClick={loading ? undefined : onClick}
-      className={classes(variant, size, pressed === true, cn(loading && 'pointer-events-none', className))}
+      className={classes(variant, size, pressed === true, cn('relative', loading && 'pointer-events-none', className))}
       {...rest}
     >
       {loading ? <Spinner className={SIZE[size].icon} /> : <Icon aria-hidden className={SIZE[size].icon} />}
+      {badge !== undefined ? (
+        <CountBadge value={badge} className={cn('absolute', badge === 'dot' ? 'top-1.5 right-1.5' : '-top-1 -right-1')} />
+      ) : null}
     </button>
   );
 }

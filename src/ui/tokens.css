@@ -34,6 +34,8 @@
   --color-link: #c4a8ff; /* text links: 9:1 on void */
   --color-danger: #c8102e; /* irreversible actions only (delete, leave) */
   --color-danger-hover: #dc1836;
+  --color-crimson-soft: #ff5468; /* crimson TEXT on a dark tint (tags): 5:1, where crimson itself is only 3.8:1 */
+  --color-badge: #d4152f; /* count badge fill: white numbers at 5:1 */
   --color-disabled: #1f1c24; /* disabled fill: neutral grey, never a faded brand colour */
   --color-on-disabled: #5f5968; /* disabled text/icon */
 
