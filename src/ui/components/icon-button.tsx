@@ -36,6 +36,23 @@ const SIZE: Record<IconButtonSize, { box: string; icon: string }> = {
   lg: { box: 'size-14', icon: 'size-7' }, // 56px
 };
 
+/**
+ * The icon-button look for an element that can't be a <button>, such as a <details> <summary>.
+ * The icon inside should use `iconButtonIconClass(size)`.
+ */
+export function iconButtonClasses({
+  variant = 'secondary',
+  size = 'md',
+  className,
+}: {
+  variant?: IconButtonVariant;
+  size?: IconButtonSize;
+  className?: string;
+}) {
+  return classes(variant, size, false, className);
+}
+export const iconButtonIconClass = (size: IconButtonSize = 'md') => SIZE[size].icon;
+
 function classes(variant: IconButtonVariant, size: IconButtonSize, pressed: boolean, className?: string) {
   return cn(
     'inline-flex shrink-0 items-center justify-center rounded-full transition duration-150 cursor-pointer',

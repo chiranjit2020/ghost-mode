@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { PiList, PiX } from 'react-icons/pi';
-import { ButtonLink } from '@/ui/components';
+import { ButtonLink, iconButtonClasses, iconButtonIconClass } from '@/ui/components';
 
 const NAV = [
   { href: '#how-it-works', label: 'How it works' },
@@ -48,12 +48,9 @@ export function SiteHeader() {
           </ButtonLink>
 
           <details className="menu relative lg:hidden">
-            <summary
-              aria-label="Menu"
-              className="group flex size-10 cursor-pointer items-center justify-center rounded-full border border-line-strong text-bone"
-            >
-              <PiList aria-hidden className="size-5 group-open:hidden" />
-              <PiX aria-hidden className="hidden size-5 group-open:block" />
+            <summary aria-label="Menu" className={iconButtonClasses({ size: 'sm', className: 'group' })}>
+              <PiList aria-hidden className={`${iconButtonIconClass('sm')} group-open:hidden`} />
+              <PiX aria-hidden className={`${iconButtonIconClass('sm')} hidden group-open:block`} />
             </summary>
             <nav aria-label="Sections" className="absolute right-0 mt-2 w-56 rounded-2xl border border-line-strong bg-surface p-2 shadow-2xl">
               <ul>

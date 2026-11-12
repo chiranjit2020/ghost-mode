@@ -20,7 +20,7 @@ import {
 } from 'react-icons/pi';
 import { Brand } from '@/ui/landing/site-header';
 import { Accent } from '@/ui/landing/primitives';
-import { Button, ButtonLink, IconButton, IconButtonLink } from '@/ui/components';
+import { Button, ButtonLink, IconButton, IconButtonLink, TextLink } from '@/ui/components';
 import { Spec, Specimen, StateGrid, StatusTag, type Status } from './kit-parts';
 import { Swatch } from './swatch';
 
@@ -34,9 +34,9 @@ export const metadata: Metadata = { title: 'Component kit', robots: { index: fal
 const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'foundations', name: 'Foundations', status: 'done', group: 'Base' },
   { id: 'button', name: 'Button', status: 'done', group: 'Base' },
-  { id: 'icon-button', name: 'Icon button', status: 'review', group: 'Base' },
-  { id: 'text-link', name: 'Text link', status: 'next', group: 'Base' },
-  { id: 'tag', name: 'Tag & count badge', status: 'planned', group: 'Base' },
+  { id: 'icon-button', name: 'Icon button', status: 'done', group: 'Base' },
+  { id: 'text-link', name: 'Text link', status: 'review', group: 'Base' },
+  { id: 'tag', name: 'Tag & count badge', status: 'next', group: 'Base' },
   { id: 'card', name: 'Card', status: 'planned', group: 'Base' },
   { id: 'field', name: 'Text field', status: 'planned', group: 'Forms' },
   { id: 'choice', name: 'Checkbox, radio, switch', status: 'planned', group: 'Forms' },
@@ -302,7 +302,7 @@ function IconButtonSpec() {
     <Spec
       id="icon-button"
       title="Icon button"
-      status="review"
+      status="done"
       summary="A round button that is only an icon. It always carries a label for screen readers, because there's no visible text to read."
       use={[
         'Secondary (outlined): standalone icons in headers and cards: menu, more, close.',
@@ -393,6 +393,94 @@ function IconButtonSpec() {
   );
 }
 
+function TextLinkSpec() {
+  const backgrounds = [
+    { name: 'void', className: 'bg-void' },
+    { name: 'charcoal', className: 'bg-charcoal' },
+    { name: 'dusk', className: 'bg-dusk' },
+    { name: 'surface', className: 'bg-surface' },
+  ];
+
+  return (
+    <Spec
+      id="text-link"
+      title="Text link"
+      status="review"
+      summary="A link inside text. Always underlined, so it's never told apart by colour alone, which also helps people who don't see colour well."
+      use={[
+        'Default: links inside sentences and paragraphs.',
+        'Subtle: footers, meta lines, legal text.',
+        'External addresses: they get an arrow and open in a new tab automatically.',
+      ]}
+      avoid={[
+        'Actions like Reply or Remove: those are Button variant="link".',
+        'A link with nowhere to go: show plain text instead, never a “disabled” link.',
+        'Bare “click here”: the link words should say where they go.',
+      ]}
+    >
+      <Specimen title="Tones" note="Hover them: the underline thickens and brightens.">
+        <div className="space-y-5 text-base">
+          <p className="text-bone">
+            Default: read the <TextLink href="/kit">community rules</TextLink> before your first post.
+          </p>
+          <p className="text-ash">
+            Subtle: <TextLink href="/kit" tone="subtle">Terms</TextLink> · <TextLink href="/kit" tone="subtle">Privacy</TextLink> ·{' '}
+            <TextLink href="/kit" tone="subtle">Help</TextLink>
+          </p>
+          <p className="text-bone">
+            External: Shadow Cloak payments are handled by <TextLink href="https://razorpay.com">Razorpay</TextLink>.
+          </p>
+        </div>
+      </Specimen>
+
+      <Specimen title="On every background" note="The link colour stays readable on all four surfaces (8:1 or better).">
+        <div className="grid gap-3 sm:grid-cols-2">
+          {backgrounds.map((b) => (
+            <div key={b.name} className={`rounded-field border border-line p-4 ${b.className}`}>
+              <p className="text-xs text-smoke">{b.name}</p>
+              <p className="mt-1 text-sm text-bone">
+                See how <TextLink href="/kit">Devil Points</TextLink> are earned.
+              </p>
+            </div>
+          ))}
+        </div>
+      </Specimen>
+
+      <Specimen title="In context" note="A paragraph, a hint under a card, and a footer.">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="rounded-card border border-line bg-surface p-6">
+            <p className="font-display text-lg font-bold text-bone">Anonymous, not above the rules</p>
+            <p className="mt-2 text-sm leading-relaxed text-ash">
+              Other players never know who you are. Harassment, threats and sharing someone&apos;s private information get
+              posts removed, and removed posts lose the points they earned. The full list is in the{' '}
+              <TextLink href="/kit">community rules</TextLink>.
+            </p>
+            <p className="mt-4 border-t border-dashed border-line pt-3 text-xs text-smoke">
+              Something wrong? <TextLink href="/kit" tone="subtle">Report a problem</TextLink>
+            </p>
+          </div>
+          <div className="self-end rounded-card border border-line bg-void p-6">
+            <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
+              <span className="text-smoke">18+ only · A Howdy world</span>
+              <span className="flex gap-4">
+                <TextLink href="/kit" tone="subtle">
+                  Terms
+                </TextLink>
+                <TextLink href="/kit" tone="subtle">
+                  Privacy
+                </TextLink>
+                <TextLink href="/kit" tone="subtle">
+                  Rules
+                </TextLink>
+              </span>
+            </div>
+          </div>
+        </div>
+      </Specimen>
+    </Spec>
+  );
+}
+
 export default function KitPage() {
   const groups = [...new Set(ROADMAP.map((r) => r.group))];
   return (
@@ -445,6 +533,7 @@ export default function KitPage() {
           <Foundations />
           <ButtonSpec />
           <IconButtonSpec />
+          <TextLinkSpec />
         </main>
       </div>
     </div>
