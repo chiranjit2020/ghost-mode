@@ -1,6 +1,6 @@
 import { PiCheck, PiClockCountdown, PiEye, PiShieldCheck } from 'react-icons/pi';
 import { Accent, ArtSlot, Eyebrow, Heading, Lead, Section } from './primitives';
-import { ButtonLink } from '@/ui/components';
+import { ButtonLink, Card, CardFoot, CardWell, Tag } from '@/ui/components';
 import { ExposureMeter } from './exposure-meter';
 
 /* 08 — Pure Souls */
@@ -24,13 +24,13 @@ export function PureSoulsSection() {
             end your Devil may be purified. Will you survive the hunt?
           </p>
 
-          <div className="mt-8 flex items-start gap-3 rounded-2xl border border-line bg-surface/60 p-4">
+          <Card shape="row" padding="sm" className="mt-8 flex items-start gap-3">
             <PiEye aria-hidden className="mt-0.5 size-5 shrink-0 text-halo" />
             <p className="text-sm text-ash">
               Pure Souls are part of the game, run by Howdy. They never post, chat or pretend to be a person. The loudest,
               most powerful devils tend to draw their eye.
             </p>
-          </div>
+          </Card>
         </div>
         <ArtSlot id="pureSoul" aspect="aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5]" halo />
       </div>
@@ -83,11 +83,13 @@ export function CloakSection() {
           <ArtSlot id="cloak" aspect="aspect-[16/9]" className="mt-10" />
         </div>
 
-        <div className="rounded-card border border-violet/40 bg-surface p-6 shadow-2xl sm:p-8">
+        <Card tone="premium" on="dusk">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-xs font-semibold tracking-[0.2em] text-violet uppercase">Item</p>
-              <p className="mt-1 font-display text-2xl font-extrabold text-bone">Shadow Cloak</p>
+              <Tag size="sm" tone="violet">
+                Item
+              </Tag>
+              <p className="mt-2 font-display text-2xl font-extrabold text-bone">Shadow Cloak</p>
             </div>
             <PiShieldCheck aria-hidden className="size-10 text-violet" />
           </div>
@@ -103,20 +105,20 @@ export function CloakSection() {
               </li>
             ))}
           </ul>
-          <div className="mt-6 flex items-center gap-2 rounded-xl bg-void/60 px-4 py-3 text-sm text-ash">
-            <PiClockCountdown aria-hidden className="size-5 text-ember" />
+          <CardWell className="mt-6 flex items-center gap-2 text-sm text-ash">
+            <PiClockCountdown aria-hidden className="size-5 shrink-0 text-ember" />
             <span>
               Or earn one free through <span className="text-bone">Dark Missions</span>.
             </span>
-          </div>
+          </CardWell>
           <div className="mt-6">
             <ButtonLink href="/enter">Get your Shadow Cloak</ButtonLink>
           </div>
-          <p className="mt-5 text-xs leading-relaxed text-smoke">
+          <CardFoot className="leading-relaxed">
             The Shadow Cloak protects your in-game Devil, not your account or identity, which are never at risk. It never
             overrides safety or moderation. Who the Pure Souls visit never depends on whether you&apos;ve bought anything.
-          </p>
-        </div>
+          </CardFoot>
+        </Card>
       </div>
     </Section>
   );

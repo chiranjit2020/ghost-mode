@@ -1,7 +1,7 @@
 import { PiCrown, PiLightning } from 'react-icons/pi';
 import { HALO, RANKS, REACTIONS } from '@/world/world.config';
 import { Accent, ArtSlot, Eyebrow, Heading, Highlight, Lead, Section } from './primitives';
-import { ButtonLink } from '@/ui/components';
+import { ButtonLink, Card, CardWell } from '@/ui/components';
 import { ReactionMystery } from './reaction-mystery';
 
 /* 05 — Devil Points */
@@ -60,7 +60,8 @@ export function PointsSection() {
 /* 06 — Ranks */
 function PowerProfile() {
   return (
-    <div role="figure" aria-label="Example Devil profile" className="rounded-card border border-line-strong bg-surface p-6 text-center shadow-2xl">
+    <div role="figure" aria-label="Example Devil profile">
+      <Card tone="feature" className="text-center">
       <span aria-hidden className="mx-auto flex size-20 items-center justify-center rounded-full bg-plum text-4xl ring-2 ring-crimson/60">
         🐺
       </span>
@@ -70,16 +71,17 @@ function PowerProfile() {
       </p>
       <p className="mt-4 font-display text-4xl font-extrabold gradient-ink tabular-nums">8,450 DP</p>
       <dl className="mt-5 grid grid-cols-2 gap-2 text-left">
-        <div className="rounded-xl bg-void/60 p-3">
+        <CardWell>
           <dt className="text-xs text-smoke">🔥 Dark Reputation</dt>
           <dd className="font-display text-xl font-bold text-bone tabular-nums">92</dd>
-        </div>
-        <div className="rounded-xl bg-void/60 p-3">
+        </CardWell>
+        <CardWell>
           <dt className="text-xs text-smoke">💀 Soul Integrity</dt>
           <dd className="font-display text-xl font-bold text-bone tabular-nums">76</dd>
-        </div>
+        </CardWell>
       </dl>
       <p className="mt-5 text-sm text-ash italic">&ldquo;Even the shadows fear me.&rdquo;</p>
+      </Card>
     </div>
   );
 }
@@ -143,7 +145,7 @@ export function EmojiSection() {
         {REACTIONS.map((r) => (
           <li
             key={r.name}
-            className="group flex flex-col items-center gap-2 rounded-2xl border border-line bg-plum/50 px-2 py-5 transition hover:-translate-y-1 hover:border-line-strong"
+            className="group flex flex-col items-center gap-2 rounded-2xl border border-line bg-plum/50 px-2 py-5"
           >
             <span aria-hidden className="text-4xl transition group-hover:scale-110 sm:text-5xl">
               {r.emoji}
@@ -153,7 +155,7 @@ export function EmojiSection() {
         ))}
       </ul>
 
-      <div className="mx-auto mt-6 flex max-w-3xl flex-col items-center gap-4 rounded-2xl border border-halo/30 bg-void/50 p-5 text-center sm:flex-row sm:text-left">
+      <Card tone="halo" on="dusk" className="mx-auto mt-6 flex max-w-3xl flex-col items-center gap-4 text-center sm:flex-row sm:text-left">
         <span aria-hidden className="text-5xl">
           {HALO.emoji}
         </span>
@@ -163,7 +165,7 @@ export function EmojiSection() {
             {HALO.line} Throwing one costs the thrower too, so nobody can drain you for free.
           </p>
         </div>
-      </div>
+      </Card>
 
       <div className="mx-auto max-w-3xl">
         <Highlight>Don&apos;t just react. Make a statement.</Highlight>

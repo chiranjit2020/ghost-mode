@@ -38,6 +38,8 @@ import {
   IconButton,
   IconButtonLink,
   Tag,
+  TextArea,
+  TextField,
   TextLink,
   type CardTone,
   type TagTone,
@@ -58,9 +60,9 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'icon-button', name: 'Icon button', status: 'done', group: 'Base' },
   { id: 'text-link', name: 'Text link', status: 'done', group: 'Base' },
   { id: 'tag', name: 'Tag & count badge', status: 'done', group: 'Base' },
-  { id: 'card', name: 'Card', status: 'review', group: 'Base' },
-  { id: 'field', name: 'Text field', status: 'next', group: 'Forms' },
-  { id: 'choice', name: 'Checkbox, radio, switch', status: 'planned', group: 'Forms' },
+  { id: 'card', name: 'Card', status: 'done', group: 'Base' },
+  { id: 'field', name: 'Text field', status: 'review', group: 'Forms' },
+  { id: 'choice', name: 'Checkbox, radio, switch', status: 'next', group: 'Forms' },
   { id: 'avatar', name: 'Ghost avatar', status: 'planned', group: 'Identity' },
   { id: 'tabs', name: 'Tabs', status: 'planned', group: 'Navigation' },
   { id: 'menu', name: 'Menu', status: 'planned', group: 'Navigation' },
@@ -632,7 +634,7 @@ function CardSpec() {
     <Spec
       id="card"
       title="Card"
-      status="review"
+      status="done"
       summary="The one container for posts, panels, items and list rows. Five tones, two paddings, two shapes. Only cards that go somewhere lift when you hover them."
       use={[
         'Default for almost everything.',
@@ -783,6 +785,81 @@ function CardSpec() {
   );
 }
 
+function FieldSpec() {
+  return (
+    <Spec
+      id="field"
+      title="Text field"
+      status="review"
+      summary="A labelled box for typing, with one message line underneath for the hint, the error or a confirmation. Built so a form never jumps or guesses."
+      use={[
+        'TextField for one line: names, email, password, search.',
+        'TextArea for posts, replies and longer answers.',
+        'A hint when people need to know a rule before they type.',
+        'An error that says what to do, right under the field.',
+      ]}
+      avoid={[
+        'A placeholder instead of a label: it vanishes as soon as you type.',
+        'Errors only at the top of the form.',
+        'Red for anything but a real problem with what was typed.',
+        'Text under 16px inside fields: phones zoom in.',
+      ]}
+    >
+      <Specimen title="States" note="Click into a field to see the focus look. The message line is always reserved, so an error never pushes the form down.">
+        <div className="grid gap-x-6 gap-y-2 md:grid-cols-2 lg:grid-cols-3">
+          <TextField label="Default" placeholder="e.g. MidnightPanda" />
+          <TextField label="Filled" defaultValue="MidnightPanda" />
+          <TextField label="With a hint" hint="3–20 letters or numbers. You can change it later." />
+          <TextField label="Error" defaultValue="mp" error="Too short. Use 3–20 letters or numbers." />
+          <TextField label="Success" defaultValue="ShadowWolf" success="Available" />
+          <TextField label="Disabled" defaultValue="Locked until Level 2" disabled />
+        </div>
+      </Specimen>
+
+      <Specimen title="Kinds" note="Search with an icon (label hidden, since the icon says it), password with show/hide, optional fields marked.">
+        <div className="grid gap-x-6 gap-y-2 md:grid-cols-3">
+          <TextField label="Search the Dark World" hideLabel icon="search" placeholder="Search posts and Ghosts" type="search" />
+          <TextField label="Password" type="password" defaultValue="sunflower porch lantern" hint="At least 12 characters." />
+          <TextField label="Recovery email" type="email" optional placeholder="you@example.com" hint="Only used to get your account back." />
+        </div>
+      </Specimen>
+
+      <Specimen title="Text area" note="The counter only appears in the last fifth of the limit, so it doesn't nag. Type in the second one.">
+        <div className="grid gap-x-6 gap-y-2 md:grid-cols-2">
+          <TextArea label="Your confession" placeholder="Something you've never told anyone…" maxLength={500} />
+          <TextArea
+            label="Near the limit"
+            maxLength={120}
+            defaultValue="I tell everyone I'm a morning person. I have never once, in my entire life, seen a sunrise on purpose."
+          />
+        </div>
+      </Specimen>
+
+      <Specimen title="In context" note="Creating a Ghost (Level 1), with only approved components.">
+        <div className="mx-auto max-w-md">
+          <Card tone="feature">
+            <p className="font-display text-2xl font-extrabold text-bone">
+              Create your <Accent>Ghost</Accent>
+            </p>
+            <p className="mt-1 text-sm text-ash">No real name. No photo. Nobody here will know it&apos;s you.</p>
+            <div className="mt-6 space-y-2">
+              <TextField label="Ghost name" icon="at" defaultValue="ShadowWolf" success="Available" autoComplete="off" />
+              <TextField label="Email" type="email" placeholder="you@example.com" hint="Never shown to anyone. Only for signing in." />
+              <TextField label="Password" type="password" hint="At least 12 characters." />
+            </div>
+            <Button fullWidth className="mt-4">
+              Create my Ghost
+            </Button>
+            <CardFoot>
+              By continuing you agree to the <TextLink href="/kit" tone="subtle">rules</TextLink>. 18+ only.
+            </CardFoot>
+          </Card>
+        </div>
+      </Specimen>
+    </Spec>
+  );
+}
+
 export default function KitPage() {
   const groups = [...new Set(ROADMAP.map((r) => r.group))];
   return (
@@ -838,6 +915,7 @@ export default function KitPage() {
           <TextLinkSpec />
           <TagSpec />
           <CardSpec />
+          <FieldSpec />
         </main>
       </div>
     </div>

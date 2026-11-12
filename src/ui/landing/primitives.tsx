@@ -66,10 +66,6 @@ export function Highlight({ children }: { children: ReactNode }) {
   );
 }
 
-export function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-card border border-line bg-surface/70 p-6 ${className}`}>{children}</div>;
-}
-
 /** Small "arrives later" tag, so the page never promises a feature as if it exists today. */
 export function LaterTag() {
   return <Tag size="sm">Later</Tag>;

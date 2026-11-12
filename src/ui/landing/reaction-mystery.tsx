@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { PiDiceFive } from 'react-icons/pi';
-import { Button } from '@/ui/components';
+import { Button, Card } from '@/ui/components';
 import { REACTION_MYSTERY_ODDS } from '@/world/world.config';
 
 type Outcome = (typeof REACTION_MYSTERY_ODDS)[number];
@@ -25,7 +25,7 @@ export function ReactionMystery() {
   const [tries, setTries] = useState(0);
 
   return (
-    <div className="rounded-card border border-line-strong bg-surface p-6 sm:p-8">
+    <Card tone="feature">
       <p className="text-xs font-semibold tracking-[0.2em] text-violet uppercase">Try it · the 100-reaction mystery</p>
       <p className="mt-3 font-display text-xl font-bold text-bone">Your post just got 100 reactions.</p>
       <p className="mt-1 text-sm text-ash">How much power does the darkness grant you?</p>
@@ -75,6 +75,6 @@ export function ReactionMystery() {
         </table>
         <p className="mt-2 text-xs text-smoke">Example figures for the preview. Real odds will be published before launch.</p>
       </details>
-    </div>
+    </Card>
   );
 }

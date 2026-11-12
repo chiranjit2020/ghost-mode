@@ -13,7 +13,7 @@ import {
 import type { IconType } from 'react-icons';
 import { TOPICS, WORLD } from '@/world/world.config';
 import { Accent, ArtSlot, Eyebrow, Heading, Highlight, LaterTag, Lead, Section } from './primitives';
-import { ButtonLink } from '@/ui/components';
+import { ButtonLink, Card } from '@/ui/components';
 
 /* 01 — Hero */
 export function HeroSection() {
@@ -74,10 +74,10 @@ export function IdentitySection() {
           </Lead>
           <ul className="mt-8 grid gap-3 sm:grid-cols-2">
             {NOT_REQUIRED.map(({ icon: Icon, text }) => (
-              <li key={text} className="flex items-center gap-3 rounded-2xl border border-line bg-surface/60 px-4 py-3 text-sm text-bone">
+              <Card as="li" key={text} shape="row" padding="sm" className="flex items-center gap-3 text-sm text-bone">
                 <Icon aria-hidden className="size-5 shrink-0 text-crimson" />
                 {text}
-              </li>
+              </Card>
             ))}
           </ul>
           <p className="mt-6 text-ash">
@@ -113,11 +113,11 @@ export function ExpressionSection() {
 
       <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {TOPICS.map((t, i) => (
-          <li key={t.name} className="gradient-card gradient-card--dusk rounded-2xl p-5">
+          <Card as="li" key={t.name} tone="glow" on="dusk">
             <p className="text-xs font-semibold text-smoke tabular-nums">{String(i + 1).padStart(2, '0')}</p>
             <p className="mt-2 font-display text-base font-bold text-bone">{t.name}</p>
             <p className="mt-1 text-sm text-ash">{t.line}</p>
-          </li>
+          </Card>
         ))}
       </ul>
       <p className="mt-4 text-sm text-smoke">Topics are moods, not rules. Post without picking one.</p>
@@ -139,7 +139,8 @@ const FEATURES: { icon: IconType; title: string; text: string; later?: boolean }
 
 function FeedMock() {
   return (
-    <div aria-label="Example post in the Dark Feed" role="figure" className="rounded-card border border-line-strong bg-surface p-5 shadow-2xl">
+    <div aria-label="Example post in the Dark Feed" role="figure">
+      <Card tone="feature">
       <div className="flex items-center gap-3">
         <span aria-hidden className="flex size-10 items-center justify-center rounded-full bg-plum text-xl">🐼</span>
         <div className="min-w-0">
@@ -174,6 +175,7 @@ function FeedMock() {
           </div>
         </div>
       </div>
+      </Card>
     </div>
   );
 }
@@ -193,16 +195,14 @@ export function SocialSection() {
           </Lead>
           <ul className="mt-10 grid gap-3 sm:grid-cols-2">
             {FEATURES.map(({ icon: Icon, title, text, later }) => (
-              <li key={title}>
-                <div className="gradient-card h-full rounded-card p-5">
-                  <div className="flex items-center justify-between gap-2">
-                    <Icon aria-hidden className="size-6 text-crimson" />
-                    {later ? <LaterTag /> : null}
-                  </div>
-                  <p className="mt-3 font-display font-bold text-bone">{title}</p>
-                  <p className="mt-1 text-sm text-ash">{text}</p>
+              <Card as="li" key={title} tone="glow">
+                <div className="flex items-center justify-between gap-2">
+                  <Icon aria-hidden className="size-6 text-crimson" />
+                  {later ? <LaterTag /> : null}
                 </div>
-              </li>
+                <p className="mt-3 font-display font-bold text-bone">{title}</p>
+                <p className="mt-1 text-sm text-ash">{text}</p>
+              </Card>
             ))}
           </ul>
         </div>

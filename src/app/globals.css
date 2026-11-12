@@ -96,7 +96,6 @@ body {
  * and fades to nothing toward the bottom-left. The fill is painted inside the border (padding-box) and the gradient
  * under it (border-box), so the border shows through a transparent 1px edge. --card-fill must be opaque.
  */
-.gradient-card,
 .card-glow {
   --card-fill: var(--color-surface);
   border: 1px solid transparent;
@@ -112,19 +111,11 @@ body {
       border-box,
     /* The same faint hairline the image placeholders have, so the faded corner still has an edge. */
     linear-gradient(var(--color-line), var(--color-line)) border-box;
-  transition:
-    transform 200ms ease,
-    box-shadow 200ms ease;
 }
-.gradient-card--dusk,
 .card-glow--dusk {
-  --card-fill: #22162c;
+  --card-fill: var(--color-plum); /* same fill as every other card on a dusk section */
 }
-/*
- * Lift on hover = "this goes somewhere". .card-lift is only put on cards that are links (Card with href).
- * .gradient-card is the landing's pre-kit class and still lifts until the landing moves to <Card>.
- */
-.gradient-card:hover,
+/* Lift on hover = "this goes somewhere". Only put on cards that are links (CardLink), never on static ones. */
 .card-lift:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 32px -14px rgb(232 32 60 / 0.6);

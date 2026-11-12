@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Card } from '@/ui/components';
 import { EXPOSURE_STAGES } from '@/world/world.config';
 
 const FILL = ['fill-20', 'fill-40', 'fill-60', 'fill-80', 'fill-100'] as const;
@@ -11,7 +12,7 @@ export function ExposureMeter() {
   const current = EXPOSURE_STAGES[stage];
 
   return (
-    <div className="rounded-card border border-line-strong bg-surface p-6 sm:p-8">
+    <Card tone="feature">
       <div className="flex items-baseline justify-between gap-4">
         <p className="text-xs font-semibold tracking-[0.2em] text-halo uppercase">Soul Exposure</p>
         <p className="font-display text-3xl font-extrabold text-bone tabular-nums">{current.percent}%</p>
@@ -46,6 +47,6 @@ export function ExposureMeter() {
         Purification resets your Devil, not your account. Your posts, handle and purchases stay. Real identity is never
         revealed, at any stage.
       </p>
-    </div>
+    </Card>
   );
 }

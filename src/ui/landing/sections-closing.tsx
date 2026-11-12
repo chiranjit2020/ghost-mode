@@ -13,7 +13,7 @@ import {
 import { WORLD } from '@/world/world.config';
 import { Brand } from './site-header';
 import { Accent, ArtSlot, Eyebrow, Heading, Highlight, LaterTag, Lead, Section } from './primitives';
-import { ButtonLink, Tag } from '@/ui/components';
+import { ButtonLink, Card, Tag } from '@/ui/components';
 
 /* 11 — Missions */
 const MISSIONS = [
@@ -47,11 +47,11 @@ export function MissionsSection() {
         </div>
         <ul className="grid gap-3">
           {MISSIONS.map((m) => (
-            <li key={m.title} className="flex items-center gap-4 rounded-2xl border border-line bg-surface p-4">
+            <Card as="li" key={m.title} shape="row" padding="sm" className="flex items-center gap-4">
               <PiScroll aria-hidden className="size-6 shrink-0 text-ember" />
               <p className="min-w-0 flex-1 text-sm font-medium text-bone">{m.title}</p>
               <Tag tone="ember">{m.reward}</Tag>
-            </li>
+            </Card>
           ))}
         </ul>
       </div>
@@ -127,11 +127,11 @@ export function SafetySection() {
         </div>
         <ul className="grid gap-3 sm:grid-cols-2">
           {PROMISES.map(({ icon: Icon, title, text }) => (
-            <li key={title} className="rounded-2xl border border-line bg-surface p-5">
+            <Card as="li" key={title}>
               <Icon aria-hidden className="size-6 text-halo" />
               <p className="mt-3 font-display font-bold text-bone">{title}</p>
               <p className="mt-1 text-sm text-ash">{text}</p>
-            </li>
+            </Card>
           ))}
         </ul>
       </div>
