@@ -66,6 +66,7 @@ import {
   type TagTone,
 } from '@/ui/components';
 import { Spec, Specimen, StateGrid, StatusTag, type Status } from './kit-parts';
+import { DpDemo } from './dp-demo';
 import { FeedStatesDemo } from './empty-demo';
 import { AvatarSheetDemo, ConfirmDemo, ReportDemo, ShareSheetDemo } from './dialog-demo';
 import { FlipMenuDemo, PostMenuDemo, SortMenuDemo } from './menu-demo';
@@ -96,9 +97,9 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'toast', name: 'Toast', status: 'done', group: 'Overlays' },
   { id: 'tooltip', name: 'Tooltip', status: 'done', group: 'Overlays' },
   { id: 'empty', name: 'Skeleton & empty state', status: 'done', group: 'Feedback' },
-  { id: 'rank', name: 'Rank badge', status: 'review', group: 'Game' },
-  { id: 'dp', name: 'DP counter & reward toast', status: 'next', group: 'Game' },
-  { id: 'reactions', name: 'Reaction bar', status: 'planned', group: 'Game' },
+  { id: 'rank', name: 'Rank badge', status: 'done', group: 'Game' },
+  { id: 'dp', name: 'DP counter & reward toast', status: 'review', group: 'Game' },
+  { id: 'reactions', name: 'Reaction bar', status: 'next', group: 'Game' },
   { id: 'exposure', name: 'Exposure meter', status: 'planned', group: 'Game' },
   { id: 'post', name: 'Post card & reply', status: 'planned', group: 'Game' },
 ];
@@ -1415,7 +1416,7 @@ function RankSpec() {
     <Spec
       id="rank"
       title="Rank badge"
-      status="review"
+      status="done"
       summary="Where a devil stands, from Lost Soul to Dark Lord. One colour that builds up rank by rank, always with the number, so the order reads even without colour."
       use={[
         'Small badge beside a name on posts and replies.',
@@ -1478,6 +1479,29 @@ function RankSpec() {
       <Specimen title="Ladder" note="All eight in order. You are at Shadow Demon: ranks ahead are quieter but never hidden. The landing uses this without a current rank.">
         <RankLadder current={4} />
       </Specimen>
+    </Spec>
+  );
+}
+
+function DpSpec() {
+  return (
+    <Spec
+      id="dp"
+      title="DP counter & reward toast"
+      status="review"
+      summary="A devil’s Devil Points and the moment they move. The counter counts to the new number; the reward toast says what happened, once."
+      use={[
+        'The DP chip in the header, and the big number on a profile.',
+        'A DP history: every gain and loss, with what caused it.',
+        'The reward toast, only when DP really moved.',
+      ]}
+      avoid={[
+        'Anything next to a price: DP is earned, never bought or cashed out.',
+        'Alarm red for a loss: losing a little is part of the game.',
+        'Teaser toasts to keep people tapping (“You might win!”).',
+      ]}
+    >
+      <DpDemo />
     </Spec>
   );
 }
@@ -1547,6 +1571,7 @@ export default function KitPage() {
           <TooltipSpec />
           <EmptySpec />
           <RankSpec />
+          <DpSpec />
         </main>
       </div>
     </div>

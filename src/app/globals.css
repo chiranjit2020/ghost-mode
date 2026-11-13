@@ -269,7 +269,22 @@ body {
 .skeleton {
   animation: skeleton-pulse 1.6s ease-in-out infinite;
 }
+/* DP: the change that floats up beside the counter, and the reward toast's warm edge. */
+@keyframes dp-flash {
+  0% { opacity: 0; transform: translateY(4px); }
+  15% { opacity: 1; transform: none; }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+.dp-flash {
+  animation: dp-flash 1.8s ease-out forwards;
+}
+.toast-reward {
+  background-image: radial-gradient(120% 140% at 0% 50%, rgb(255 122 26 / 0.14), transparent 60%);
+}
 @media (prefers-reduced-motion: reduce) {
+  .dp-flash,
+  .reveal-pop,
   .skeleton,
   [role='menu'],
   [role='status'] > *,

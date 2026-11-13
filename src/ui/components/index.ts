@@ -30,6 +30,7 @@ export {
 export { AvatarPicker } from './avatar-picker';
 export { Checkbox, RadioGroup, Switch } from './choice';
 export { CountBadge } from './count-badge';
+export { DpChange, DpCounter } from './dp';
 export { EmptyState, type EmptyStateSize } from './empty-state';
 export { ConfirmDialog, Dialog, Sheet, type DialogSize } from './dialog';
 export { Menu, SelectMenu, type MenuItem, type MenuTrigger } from './menu';

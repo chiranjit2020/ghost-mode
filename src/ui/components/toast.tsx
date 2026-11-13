@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import type { IconType } from 'react-icons';
 import { PiCheckCircle, PiWarningCircle, PiX } from 'react-icons/pi';
 import { cn } from '../cn';
+import { DpChange } from './dp';
 
 /**
  * Toast: a short message that says something happened, then goes away by itself. See /kit#toast.
@@ -19,7 +20,9 @@ import { cn } from '../cn';
  * - Stays 5 s (8 s with an action). Pauses while the pointer is on it or keyboard focus is inside it.
  * - Bottom centre on phones, bottom right from tablet up. At most 3 at once; older ones leave first.
  * - Screen readers hear it without moving focus (a "live region"). Errors are read out straight away.
- * - Rewards (+5 DP) get their own game toast later; this one is for plain news.
+ * - Reward toast (`dp`): the game's "+6 DP" moment, after posting, reacting or replying. The message is the
+ *   darkness's line ("Your shadow has grown stronger"). Gains glow with fire; a loss or 0 is calm grey. Only for DP
+ *   that really moved (from the server), never as a teaser to keep people tapping.
  */
 export type ToastTone = 'neutral' | 'success' | 'error';
 
@@ -27,6 +30,8 @@ export type ToastOptions = {
   tone?: ToastTone;
   /** "Undo" or "Retry" and what it does. */
   action?: { label: string; onClick: () => void };
+  /** Makes it a reward toast: the DP gained (or lost, negative). */
+  dp?: number;
 };
 
 type ToastItem = ToastOptions & { id: number; message: string };
@@ -118,11 +123,20 @@ function Toast({ item, onDismiss }: { item: ToastItem; onDismiss: (id: number) =
       className={cn(
         'pointer-events-auto flex w-full max-w-sm items-center gap-3 rounded-field border bg-surface-2 py-2 pr-2 pl-4',
         'shadow-[0_16px_40px_rgb(0_0_0/0.55)] animate-[toast-in_200ms_ease-out]',
-        tone === 'error' ? 'border-error/40' : 'border-line-strong',
+        tone === 'error' ? 'border-error/40' : item.dp !== undefined && item.dp > 0 ? 'toast-reward border-ember/40' : 'border-line-strong',
       )}
     >
-      {Icon ? <Icon aria-hidden className={cn('size-5 shrink-0', tone === 'error' ? 'text-error' : 'text-bone')} /> : null}
-      <p className="min-w-0 flex-1 py-2 text-sm text-bone">{item.message}</p>
+      {item.dp !== undefined ? (
+        <>
+          <DpChange by={item.dp} className="reveal-pop shrink-0 font-display text-2xl font-extrabold" />
+          <p className="min-w-0 flex-1 py-2 text-sm text-bone">{item.message}</p>
+        </>
+      ) : (
+        <>
+          {Icon ? <Icon aria-hidden className={cn('size-5 shrink-0', tone === 'error' ? 'text-error' : 'text-bone')} /> : null}
+          <p className="min-w-0 flex-1 py-2 text-sm text-bone">{item.message}</p>
+        </>
+      )}
       {item.action ? (
         <button
           type="button"
