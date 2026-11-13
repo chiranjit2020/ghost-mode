@@ -45,6 +45,7 @@ import {
   Checkbox,
   CountBadge,
   EmptyState,
+  ExposureMeter,
   IconButton,
   RowSkeleton,
   Skeleton,
@@ -100,9 +101,9 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'empty', name: 'Skeleton & empty state', status: 'done', group: 'Feedback' },
   { id: 'rank', name: 'Rank badge', status: 'done', group: 'Game' },
   { id: 'dp', name: 'DP counter & reward toast', status: 'done', group: 'Game' },
-  { id: 'reactions', name: 'Reaction bar', status: 'review', group: 'Game' },
-  { id: 'exposure', name: 'Exposure meter', status: 'next', group: 'Game' },
-  { id: 'post', name: 'Post card & reply', status: 'planned', group: 'Game' },
+  { id: 'reactions', name: 'Reaction bar', status: 'done', group: 'Game' },
+  { id: 'exposure', name: 'Exposure meter', status: 'review', group: 'Game' },
+  { id: 'post', name: 'Post card & reply', status: 'next', group: 'Game' },
 ];
 
 const COLOURS = {
@@ -1512,7 +1513,7 @@ function ReactionsSpec() {
     <Spec
       id="reactions"
       title="Reaction bar"
-      status="review"
+      status="done"
       summary="The eight dark reactions under a post. One per person: tap React, pick one, and the button shows what you sent. Tap yours again to take it back."
       use={[
         'Under every post and reply.',
@@ -1526,6 +1527,57 @@ function ReactionsSpec() {
       ]}
     >
       <ReactionsDemo />
+    </Spec>
+  );
+}
+
+function ExposureSpec() {
+  return (
+    <Spec
+      id="exposure"
+      title="Exposure meter"
+      status="review"
+      summary="Your Soul Exposure: how close the Pure Souls are to purifying your devil. The bar shines more the closer they get, and always says what the current stage means."
+      use={[
+        'Full: your own profile and the hunt page.',
+        'Compact: one line where space is tight (your menu, a side panel).',
+        'Showing a Cloak’s pause and when it ends.',
+      ]}
+      avoid={[
+        'A “Buy a Cloak” button or link next to it: no selling relief from the threat.',
+        'Other devils’ exposure: it would invite piling on.',
+        'Countdown or “hurry” wording: the stages say what happens, calmly.',
+      ]}
+    >
+      <Specimen title="The stages" note="Below 20% you’re Unseen. Marks sit at each stage; the stage labels light up as you pass them. Screen readers hear “Soul Exposure, 40%” and the stage.">
+        <div className="grid gap-4 md:grid-cols-2">
+          <Card>
+            <ExposureMeter percent={8} />
+          </Card>
+          <Card>
+            <ExposureMeter percent={45} />
+          </Card>
+          <Card>
+            <ExposureMeter percent={83} />
+          </Card>
+          <Card>
+            <ExposureMeter percent={100} />
+          </Card>
+        </div>
+      </Specimen>
+
+      <Specimen title="Cloaked" note="Paused: the fill turns flat violet and says until when. No store link, ever, here.">
+        <Card className="max-w-md">
+          <ExposureMeter percent={52} cloakedUntil="Sat 15 Nov, 9:00 pm" />
+        </Card>
+      </Specimen>
+
+      <Specimen title="Compact" note="One line, for a menu or side panel. The eye turns into a shield while cloaked.">
+        <div className="grid max-w-sm gap-4">
+          <ExposureMeter size="compact" percent={45} />
+          <ExposureMeter size="compact" percent={52} cloakedUntil="Sat 15 Nov" />
+        </div>
+      </Specimen>
     </Spec>
   );
 }
@@ -1597,6 +1649,7 @@ export default function KitPage() {
           <RankSpec />
           <DpSpec />
           <ReactionsSpec />
+          <ExposureSpec />
         </main>
       </div>
     </div>

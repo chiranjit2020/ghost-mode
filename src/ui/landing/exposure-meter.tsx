@@ -1,10 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Card } from '@/ui/components';
+import { Card, ExposureMeter as KitMeter } from '@/ui/components';
 import { EXPOSURE_STAGES } from '@/world/world.config';
-
-const FILL = ['fill-20', 'fill-40', 'fill-60', 'fill-80', 'fill-100'] as const;
 
 /** The five stages of Soul Exposure as a meter you can step through. */
 export function ExposureMeter() {
@@ -13,20 +11,11 @@ export function ExposureMeter() {
 
   return (
     <Card tone="feature">
-      <div className="flex items-baseline justify-between gap-4">
-        <p className="text-xs font-semibold tracking-[0.2em] text-halo uppercase">Soul Exposure</p>
-        <p className="font-display text-3xl font-extrabold text-bone tabular-nums">{current.percent}%</p>
+      <div aria-live="polite">
+        <KitMeter percent={current.percent} resetNote={false} />
       </div>
 
-      <div className="mt-4 h-3 overflow-hidden rounded-full bg-void" aria-hidden>
-        <div className={`exposure-fill h-full rounded-full ${FILL[stage]}`} />
-      </div>
-
-      <p aria-live="polite" className="mt-5 min-h-14 font-display text-lg font-bold text-bone">
-        {current.effect}
-      </p>
-
-      <div role="group" aria-label="Exposure stage" className="mt-4 grid grid-cols-5 gap-2">
+      <div role="group" aria-label="Exposure stage" className="mt-5 grid grid-cols-5 gap-2">
         {EXPOSURE_STAGES.map((s, i) => (
           <button
             key={s.percent}

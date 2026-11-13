@@ -193,6 +193,68 @@ body {
 .rank-glow[data-tier='7'] { --glow: 6; }
 .rank-glow[data-tier='8'] { --glow: 8; }
 
+/* Soul Exposure: the browser's own <meter>, restyled. Every value state (good/ok/bad) gets the same fill, so the
+   colour story is the gradient, not the browser's green/yellow/red. Paused by a Cloak = flat violet. */
+.exposure-meter {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  border-radius: 9999px;
+  overflow: hidden;
+  background: var(--color-void);
+}
+.exposure-meter::-webkit-meter-bar {
+  background: var(--color-void);
+  border: 0;
+  border-radius: 9999px;
+  height: 100%;
+}
+.exposure-meter::-webkit-meter-optimum-value,
+.exposure-meter::-webkit-meter-suboptimum-value,
+.exposure-meter::-webkit-meter-even-less-good-value {
+  background: linear-gradient(90deg, var(--color-crimson), var(--color-violet) 60%, var(--color-halo));
+  background-size: var(--track, 100%) 100%;
+  border-radius: 9999px;
+  transition: inline-size 400ms ease;
+}
+.exposure-meter::-moz-meter-bar {
+  background: linear-gradient(90deg, var(--color-crimson), var(--color-violet) 60%, var(--color-halo));
+  background-size: var(--track, 100%) 100%;
+  border-radius: 9999px;
+}
+/* The gradient spans the whole bar, so the fill only shows the part reached: crimson early, gold only near 100%.
+   --track = 100% ÷ fill, set per 5% step (data-step) because inline styles are forbidden. */
+.exposure-meter[data-step='5'] { --track: 2000.00%; }
+.exposure-meter[data-step='10'] { --track: 1000.00%; }
+.exposure-meter[data-step='15'] { --track: 666.67%; }
+.exposure-meter[data-step='20'] { --track: 500.00%; }
+.exposure-meter[data-step='25'] { --track: 400.00%; }
+.exposure-meter[data-step='30'] { --track: 333.33%; }
+.exposure-meter[data-step='35'] { --track: 285.71%; }
+.exposure-meter[data-step='40'] { --track: 250.00%; }
+.exposure-meter[data-step='45'] { --track: 222.22%; }
+.exposure-meter[data-step='50'] { --track: 200.00%; }
+.exposure-meter[data-step='55'] { --track: 181.82%; }
+.exposure-meter[data-step='60'] { --track: 166.67%; }
+.exposure-meter[data-step='65'] { --track: 153.85%; }
+.exposure-meter[data-step='70'] { --track: 142.86%; }
+.exposure-meter[data-step='75'] { --track: 133.33%; }
+.exposure-meter[data-step='80'] { --track: 125.00%; }
+.exposure-meter[data-step='85'] { --track: 117.65%; }
+.exposure-meter[data-step='90'] { --track: 111.11%; }
+.exposure-meter[data-step='95'] { --track: 105.26%; }
+.exposure-meter[data-step='100'] { --track: 100.00%; }
+.exposure-meter-paused::-webkit-meter-optimum-value,
+.exposure-meter-paused::-webkit-meter-suboptimum-value,
+.exposure-meter-paused::-webkit-meter-even-less-good-value {
+  background: var(--color-violet);
+  background-size: auto;
+}
+.exposure-meter-paused::-moz-meter-bar {
+  background: var(--color-violet);
+  background-size: auto;
+}
+
 /* Rank progress: the browser's own <progress>, restyled (no inline width needed). */
 .rank-progress {
   appearance: none;
@@ -213,19 +275,6 @@ body {
 .rank-progress::-moz-progress-bar {
   background: linear-gradient(90deg, var(--color-crimson-deep), var(--color-crimson) 70%, var(--color-ember));
   border-radius: 9999px;
-}
-
-/* Exposure bar fill widths (no inline styles: the Level 1 CSP forbids them). */
-.fill-0 { width: 0%; }
-.fill-20 { width: 20%; }
-.fill-40 { width: 40%; }
-.fill-60 { width: 60%; }
-.fill-80 { width: 80%; }
-.fill-100 { width: 100%; }
-
-.exposure-fill {
-  background: linear-gradient(90deg, var(--color-crimson), var(--color-violet) 60%, var(--color-halo));
-  transition: width 400ms ease;
 }
 
 @keyframes float {
