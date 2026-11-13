@@ -30,6 +30,8 @@ export {
 export { AvatarPicker } from './avatar-picker';
 export { Checkbox, RadioGroup, Switch } from './choice';
 export { CountBadge } from './count-badge';
+export { Menu, SelectMenu, type MenuItem, type MenuTrigger } from './menu';
+export { menuItemClasses, menuPanelClasses } from './menu-styles';
 export { Spinner } from './spinner';
 export { TabNav, Tabs, type TabsVariant } from './tabs';
 export { Tag, type TagSize, type TagTone } from './tag';

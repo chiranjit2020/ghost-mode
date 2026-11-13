@@ -54,6 +54,7 @@ import {
   type TagTone,
 } from '@/ui/components';
 import { Spec, Specimen, StateGrid, StatusTag, type Status } from './kit-parts';
+import { FlipMenuDemo, PostMenuDemo, SortMenuDemo } from './menu-demo';
 import { Swatch } from './swatch';
 
 export const metadata: Metadata = { title: 'Component kit', robots: { index: false, follow: false } };
@@ -73,9 +74,9 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'field', name: 'Text field', status: 'done', group: 'Forms' },
   { id: 'choice', name: 'Checkbox, radio, switch', status: 'done', group: 'Forms' },
   { id: 'avatar', name: 'Ghost avatar', status: 'done', group: 'Identity' },
-  { id: 'tabs', name: 'Tabs', status: 'review', group: 'Navigation' },
-  { id: 'menu', name: 'Menu', status: 'next', group: 'Navigation' },
-  { id: 'dialog', name: 'Dialog & sheet', status: 'planned', group: 'Overlays' },
+  { id: 'tabs', name: 'Tabs', status: 'done', group: 'Navigation' },
+  { id: 'menu', name: 'Menu', status: 'review', group: 'Navigation' },
+  { id: 'dialog', name: 'Dialog & sheet', status: 'next', group: 'Overlays' },
   { id: 'toast', name: 'Toast', status: 'planned', group: 'Overlays' },
   { id: 'tooltip', name: 'Tooltip', status: 'planned', group: 'Overlays' },
   { id: 'empty', name: 'Skeleton & empty state', status: 'planned', group: 'Feedback' },
@@ -1073,7 +1074,7 @@ function TabsSpec() {
     <Spec
       id="tabs"
       title="Tabs"
-      status="review"
+      status="done"
       summary="Switch between views of the same thing. Two looks: a line under the page title for sections, and pills inside a card for a small filter."
       use={[
         'Line: sections of one page (a profile’s Posts / Replies / Saved).',
@@ -1082,7 +1083,7 @@ function TabsSpec() {
       ]}
       avoid={[
         'Steps in a process (sign-up): those go one after another, not side by side.',
-        'More than 6 tabs, or long labels: use a menu (next).',
+        'More than 6 tabs, or long labels: use a menu.',
         'Actions (Post, Delete): tabs only change what you see.',
       ]}
     >
@@ -1176,6 +1177,45 @@ function TabsSpec() {
   );
 }
 
+function MenuSpec() {
+  return (
+    <Spec
+      id="menu"
+      title="Menu"
+      status="review"
+      summary="A short list of actions that opens from a button: the … on a post, or a Sort by button. It closes as soon as you pick something."
+      use={[
+        'Actions on one thing: Copy link, Mute, Report, Delete.',
+        'Picking one option where the choice isn’t worth a row of tabs (Sort by).',
+        'Rarely used actions, so the main ones can stay as visible buttons.',
+      ]}
+      avoid={[
+        'Site navigation: page links stay visible in the header or tab bar.',
+        'The main action of a screen: that’s a primary button, never hidden.',
+        'More than 7 items, or anything that needs typing: that’s a dialog (next).',
+      ]}
+    >
+      <Specimen
+        title="Post menu (…)"
+        note="Quiet icon button, lined up to the right edge. Danger last, after a line. Edit is disabled and says why. Try the keyboard: Tab to …, Enter, then ↑ ↓, a letter, Esc."
+      >
+        <PostMenuDemo />
+      </Specimen>
+
+      <Specimen title="Pick one (SelectMenu)" note="The button names the current choice; the chosen row has a tick. Screen readers hear it as checked.">
+        <SortMenuDemo />
+      </Specimen>
+
+      <Specimen
+        title="Text button, heading and link item"
+        note="A small heading groups items. A link item goes to another page. Scroll so this button sits near the bottom of the screen: the menu opens upward."
+      >
+        <FlipMenuDemo />
+      </Specimen>
+    </Spec>
+  );
+}
+
 export default function KitPage() {
   const groups = [...new Set(ROADMAP.map((r) => r.group))];
   return (
@@ -1235,6 +1275,7 @@ export default function KitPage() {
           <ChoiceSpec />
           <AvatarSpec />
           <TabsSpec />
+          <MenuSpec />
         </main>
       </div>
     </div>

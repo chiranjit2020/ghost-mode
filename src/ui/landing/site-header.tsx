@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { PiList, PiX } from 'react-icons/pi';
-import { ButtonLink, iconButtonClasses, iconButtonIconClass, Tag } from '@/ui/components';
+import { ButtonLink, iconButtonClasses, iconButtonIconClass, menuItemClasses, menuPanelClasses, Tag } from '@/ui/components';
 
 const NAV = [
   { href: '#how-it-works', label: 'How it works' },
@@ -52,11 +52,11 @@ export function SiteHeader() {
               <PiList aria-hidden className={`${iconButtonIconClass('sm')} group-open:hidden`} />
               <PiX aria-hidden className={`${iconButtonIconClass('sm')} hidden group-open:block`} />
             </summary>
-            <nav aria-label="Sections" className="absolute right-0 mt-2 w-56 rounded-2xl border border-line-strong bg-surface p-2 shadow-2xl">
+            <nav aria-label="Sections" className={`${menuPanelClasses} absolute right-0 mt-2`}>
               <ul>
                 {NAV.map((item) => (
                   <li key={item.href}>
-                    <a href={item.href} className="block rounded-xl px-3 py-3 text-sm text-bone hover:bg-surface-2">
+                    <a href={item.href} className={menuItemClasses()}>
                       {item.label}
                     </a>
                   </li>
