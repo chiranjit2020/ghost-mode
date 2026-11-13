@@ -19,6 +19,7 @@ import { menuPanelClasses } from './menu-styles';
  * - 😇 Halo only when the switch is on (Level 3 test). It costs the thrower DP, and the cost is shown before you
  *   throw it, never after.
  * - Reacting may earn DP; that's the reward toast's job, not the bar's.
+ * - size sm under replies: a smaller-looking button (same 44px tap area), so replies stay quieter than the post.
  */
 export type ReactionName = (typeof REACTIONS)[number]['name'] | typeof HALO.name;
 
@@ -30,6 +31,7 @@ export function ReactionBar({
   mine,
   onChange,
   halo,
+  size = 'md',
   className,
 }: {
   /** How many of each, by name. Missing = 0. Your own reaction is already included. */
@@ -38,8 +40,10 @@ export function ReactionBar({
   onChange: (next: ReactionName | null) => void;
   /** Turns on 😇 Halo, with what it costs the thrower. */
   halo?: { cost: number };
+  size?: 'sm' | 'md';
   className?: string;
 }) {
+  const sm = size === 'sm';
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState<ReactionName | null>(null);
   const [below, setBelow] = useState(false);
@@ -130,7 +134,9 @@ export function ReactionBar({
           setOpen(true);
         }}
         className={cn(
-          'inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full border px-3.5 text-sm font-semibold transition-colors duration-150',
+          'relative inline-flex cursor-pointer items-center rounded-full border font-semibold transition-colors duration-150',
+          // sm looks 32px tall but the invisible strip above and below keeps a 44px tap target.
+          sm ? 'min-h-8 gap-1.5 px-2.5 text-xs before:absolute before:inset-x-0 before:-inset-y-1.5' : 'min-h-11 gap-2 px-3.5 text-sm',
           mineChoice
             ? mineChoice.name === HALO.name
               ? 'border-halo/40 bg-halo/10 text-halo'
@@ -139,16 +145,16 @@ export function ReactionBar({
         )}
       >
         {mineChoice ? (
-          <span aria-hidden className="text-lg leading-none">
+          <span aria-hidden className={cn('leading-none', sm ? 'text-base' : 'text-lg')}>
             {mineChoice.emoji}
           </span>
         ) : (
-          <PiSmiley aria-hidden className="size-5" />
+          <PiSmiley aria-hidden className={sm ? 'size-4' : 'size-5'} />
         )}
         <span aria-hidden>{mineChoice ? mineChoice.name : 'React'}</span>
       </button>
 
-      <p className="flex items-center gap-1.5 text-sm text-ash">
+      <p className={cn('flex items-center gap-1.5 text-ash', sm ? 'text-xs' : 'text-sm')}>
         {top.length ? (
           <span aria-hidden className="flex -space-x-1 text-base leading-none">
             {top.map((c) => (

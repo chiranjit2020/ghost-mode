@@ -69,6 +69,7 @@ import {
 import { Spec, Specimen, StateGrid, StatusTag, type Status } from './kit-parts';
 import { DpDemo } from './dp-demo';
 import { FeedStatesDemo } from './empty-demo';
+import { PostDemo } from './post-demo';
 import { ReactionsDemo } from './reactions-demo';
 import { AvatarSheetDemo, ConfirmDemo, ReportDemo, ShareSheetDemo } from './dialog-demo';
 import { FlipMenuDemo, PostMenuDemo, SortMenuDemo } from './menu-demo';
@@ -102,8 +103,8 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'rank', name: 'Rank badge', status: 'done', group: 'Game' },
   { id: 'dp', name: 'DP counter & reward toast', status: 'done', group: 'Game' },
   { id: 'reactions', name: 'Reaction bar', status: 'done', group: 'Game' },
-  { id: 'exposure', name: 'Exposure meter', status: 'review', group: 'Game' },
-  { id: 'post', name: 'Post card & reply', status: 'next', group: 'Game' },
+  { id: 'exposure', name: 'Exposure meter', status: 'done', group: 'Game' },
+  { id: 'post', name: 'Post card & reply', status: 'review', group: 'Game' },
 ];
 
 const COLOURS = {
@@ -1536,7 +1537,7 @@ function ExposureSpec() {
     <Spec
       id="exposure"
       title="Exposure meter"
-      status="review"
+      status="done"
       summary="Your Soul Exposure: how close the Pure Souls are to purifying your devil. The bar shines more the closer they get, and always says what the current stage means."
       use={[
         'Full: your own profile and the hunt page.',
@@ -1578,6 +1579,29 @@ function ExposureSpec() {
           <ExposureMeter size="compact" percent={52} cloakedUntil="Sat 15 Nov" />
         </div>
       </Specimen>
+    </Spec>
+  );
+}
+
+function PostSpec() {
+  return (
+    <Spec
+      id="post"
+      title="Post card & reply"
+      status="review"
+      summary="The main thing people read. Built only from approved pieces: avatar, rank, topic tag, the … menu, reactions, reply. Replies live inside the card, one level deep."
+      use={[
+        'Feeds, a topic page, a profile’s posts, a single post’s page.',
+        'Replies under a post, with the reply box at the bottom.',
+        'PostSkeleton while it loads; the removed placeholder when it’s gone.',
+      ]}
+      avoid={[
+        'Replies to replies: one level only, so threads stay readable on a phone.',
+        'Extra buttons between the text and its actions.',
+        'A real name or photo anywhere: authors are always ghosts.',
+      ]}
+    >
+      <PostDemo />
     </Spec>
   );
 }
@@ -1650,6 +1674,7 @@ export default function KitPage() {
           <DpSpec />
           <ReactionsSpec />
           <ExposureSpec />
+          <PostSpec />
         </main>
       </div>
     </div>

@@ -37,6 +37,7 @@ export { ConfirmDialog, Dialog, Sheet, type DialogSize } from './dialog';
 export { Menu, SelectMenu, type MenuItem, type MenuTrigger } from './menu';
 export { menuItemClasses, menuPanelClasses } from './menu-styles';
 export { ReactionBar, type ReactionName } from './reactions';
+export { PostCard, Reply, ReplyBox, type PostAuthor, type PostReactions } from './post';
 export { RankBadge, RankLadder, RankProgress, rankTitle, type RankNumber } from './rank';
 export { PostSkeleton, RowSkeleton, Skeleton, SkeletonGroup, type SkeletonShape } from './skeleton';
 export { Spinner } from './spinner';
