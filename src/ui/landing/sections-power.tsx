@@ -1,7 +1,7 @@
 import { PiCrown, PiLightning } from 'react-icons/pi';
 import { HALO, RANKS, REACTIONS } from '@/world/world.config';
 import { Accent, ArtSlot, Eyebrow, Heading, Highlight, Lead, Section } from './primitives';
-import { ButtonLink, Card, CardWell } from '@/ui/components';
+import { ButtonLink, Card, CardWell, GhostAvatar } from '@/ui/components';
 import { ReactionMystery } from './reaction-mystery';
 
 /* 05 — Devil Points */
@@ -62,9 +62,7 @@ function PowerProfile() {
   return (
     <div role="figure" aria-label="Example Devil profile">
       <Card tone="feature" className="text-center">
-      <span aria-hidden className="mx-auto flex size-20 items-center justify-center rounded-full bg-plum text-4xl ring-2 ring-crimson/60">
-        🐺
-      </span>
+      <GhostAvatar avatarKey="skull" size="xl" />
       <p className="mt-4 font-display text-2xl font-extrabold tracking-wide text-bone">SHADOWWOLF</p>
       <p className="mt-1 inline-flex items-center gap-1.5 text-sm font-semibold tracking-[0.18em] text-crimson uppercase">
         <PiCrown aria-hidden className="size-4" /> Archdevil

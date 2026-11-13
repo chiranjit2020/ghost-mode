@@ -72,7 +72,7 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'card', name: 'Card', status: 'done', group: 'Base' },
   { id: 'field', name: 'Text field', status: 'done', group: 'Forms' },
   { id: 'choice', name: 'Checkbox, radio, switch', status: 'done', group: 'Forms' },
-  { id: 'avatar', name: 'Ghost avatar', status: 'review', group: 'Identity' },
+  { id: 'avatar', name: 'Ghost avatar', status: 'done', group: 'Identity' },
   { id: 'tabs', name: 'Tabs', status: 'review', group: 'Navigation' },
   { id: 'menu', name: 'Menu', status: 'next', group: 'Navigation' },
   { id: 'dialog', name: 'Dialog & sheet', status: 'planned', group: 'Overlays' },
@@ -397,9 +397,7 @@ function IconButtonSpec() {
             </div>
             <div className="rounded-card border border-line bg-surface p-4">
               <div className="flex items-start gap-3">
-                <span aria-hidden className="flex size-10 shrink-0 items-center justify-center rounded-full bg-plum text-xl">
-                  🐼
-                </span>
+                <GhostAvatar avatarKey="moon" />
                 <div className="min-w-0 flex-1">
                   <p className="font-semibold text-bone">MidnightPanda</p>
                   <p className="text-xs text-smoke">Trickster · 12 min</p>
@@ -590,9 +588,7 @@ function TagSpec() {
           <div className="space-y-4">
             <div className="rounded-card border border-line bg-surface p-4">
               <div className="flex items-center gap-3">
-                <span aria-hidden className="flex size-10 shrink-0 items-center justify-center rounded-full bg-plum text-xl">
-                  🐺
-                </span>
+                <GhostAvatar avatarKey="skull" />
                 <div className="min-w-0 flex-1">
                   <p className="flex flex-wrap items-center gap-2 font-semibold text-bone">
                     ShadowWolf <Tag size="sm" tone="crimson">Archdevil</Tag>
@@ -728,9 +724,7 @@ function CardSpec() {
         <div className="grid gap-6 lg:grid-cols-3">
           <Card as="article" padding="sm">
             <div className="flex items-center gap-3">
-              <span aria-hidden className="flex size-10 shrink-0 items-center justify-center rounded-full bg-plum text-xl">
-                🐼
-              </span>
+              <GhostAvatar avatarKey="moon" />
               <div className="min-w-0 flex-1">
                 <p className="font-semibold text-bone">MidnightPanda</p>
                 <p className="text-xs text-smoke">Trickster · 12 min</p>
@@ -751,9 +745,7 @@ function CardSpec() {
           </Card>
 
           <Card tone="feature" className="text-center">
-            <span aria-hidden className="mx-auto flex size-16 items-center justify-center rounded-full bg-plum text-3xl ring-2 ring-crimson/60">
-              🐺
-            </span>
+            <GhostAvatar avatarKey="skull" size="lg" />
             <p className="mt-3 font-display text-xl font-extrabold text-bone">SHADOWWOLF</p>
             <div className="mt-1">
               <Tag size="sm" tone="crimson" icon={PiCrown}>
@@ -967,7 +959,7 @@ function AvatarSpec() {
     <Spec
       id="avatar"
       title="Ghost avatar"
-      status="review"
+      status="done"
       summary="A Ghost's face: one of 16 preset icons on a tinted circle. No photos until Level 7, so an avatar can never give away a real face."
       use={[
         'Next to a handle: posts, replies, chat, lists, profiles.',

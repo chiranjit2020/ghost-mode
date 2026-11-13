@@ -13,7 +13,7 @@ import {
 import type { IconType } from 'react-icons';
 import { TOPICS, WORLD } from '@/world/world.config';
 import { Accent, ArtSlot, Eyebrow, Heading, Highlight, LaterTag, Lead, Section } from './primitives';
-import { ButtonLink, Card } from '@/ui/components';
+import { ButtonLink, Card, GhostAvatar } from '@/ui/components';
 
 /* 01 — Hero */
 export function HeroSection() {
@@ -142,7 +142,7 @@ function FeedMock() {
     <div aria-label="Example post in the Dark Feed" role="figure">
       <Card tone="feature">
       <div className="flex items-center gap-3">
-        <span aria-hidden className="flex size-10 items-center justify-center rounded-full bg-plum text-xl">🐼</span>
+        <GhostAvatar avatarKey="moon" />
         <div className="min-w-0">
           <p className="font-semibold text-bone">MidnightPanda</p>
           <p className="text-xs text-smoke">Trickster · Unfiltered · 12 min</p>
@@ -166,7 +166,7 @@ function FeedMock() {
       </div>
       <div className="mt-4 border-t border-line pt-4">
         <div className="flex gap-3">
-          <span aria-hidden className="flex size-8 shrink-0 items-center justify-center rounded-full bg-plum">☕</span>
+          <GhostAvatar avatarKey="chai" size="sm" />
           <div>
             <p className="text-sm">
               <span className="font-semibold text-bone">ChaiDemon</span> <span className="text-xs text-smoke">Imp</span>
