@@ -54,6 +54,7 @@ import {
   type TagTone,
 } from '@/ui/components';
 import { Spec, Specimen, StateGrid, StatusTag, type Status } from './kit-parts';
+import { AvatarSheetDemo, ConfirmDemo, ReportDemo, ShareSheetDemo } from './dialog-demo';
 import { FlipMenuDemo, PostMenuDemo, SortMenuDemo } from './menu-demo';
 import { Swatch } from './swatch';
 
@@ -75,9 +76,9 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'choice', name: 'Checkbox, radio, switch', status: 'done', group: 'Forms' },
   { id: 'avatar', name: 'Ghost avatar', status: 'done', group: 'Identity' },
   { id: 'tabs', name: 'Tabs', status: 'done', group: 'Navigation' },
-  { id: 'menu', name: 'Menu', status: 'review', group: 'Navigation' },
-  { id: 'dialog', name: 'Dialog & sheet', status: 'next', group: 'Overlays' },
-  { id: 'toast', name: 'Toast', status: 'planned', group: 'Overlays' },
+  { id: 'menu', name: 'Menu', status: 'done', group: 'Navigation' },
+  { id: 'dialog', name: 'Dialog & sheet', status: 'review', group: 'Overlays' },
+  { id: 'toast', name: 'Toast', status: 'next', group: 'Overlays' },
   { id: 'tooltip', name: 'Tooltip', status: 'planned', group: 'Overlays' },
   { id: 'empty', name: 'Skeleton & empty state', status: 'planned', group: 'Feedback' },
   { id: 'rank', name: 'Rank badge', status: 'planned', group: 'Game' },
@@ -1182,7 +1183,7 @@ function MenuSpec() {
     <Spec
       id="menu"
       title="Menu"
-      status="review"
+      status="done"
       summary="A short list of actions that opens from a button: the … on a post, or a Sort by button. It closes as soon as you pick something."
       use={[
         'Actions on one thing: Copy link, Mute, Report, Delete.',
@@ -1192,7 +1193,7 @@ function MenuSpec() {
       avoid={[
         'Site navigation: page links stay visible in the header or tab bar.',
         'The main action of a screen: that’s a primary button, never hidden.',
-        'More than 7 items, or anything that needs typing: that’s a dialog (next).',
+        'More than 7 items, or anything that needs typing: that’s a dialog.',
       ]}
     >
       <Specimen
@@ -1211,6 +1212,49 @@ function MenuSpec() {
         note="A small heading groups items. A link item goes to another page. Scroll so this button sits near the bottom of the screen: the menu opens upward."
       >
         <FlipMenuDemo />
+      </Specimen>
+    </Spec>
+  );
+}
+
+function DialogSpec() {
+  return (
+    <Spec
+      id="dialog"
+      title="Dialog & sheet"
+      status="review"
+      summary="A panel over the page that needs an answer before you go back. Dialogs sit in the middle; sheets rise from the bottom on phones, where thumbs reach."
+      use={[
+        'Confirming something that can’t be undone (Delete, Leave).',
+        'A short form that belongs to one thing (Report, Change face).',
+        'Sheet: a list to pick from, or longer content on a phone (Share).',
+      ]}
+      avoid={[
+        'News or “Done!” messages: those are toasts (next), which don’t stop you.',
+        'Long multi-step flows like sign-up: those get their own page.',
+        'Opening a dialog from inside a dialog.',
+      ]}
+    >
+      <Specimen
+        title="Confirm (danger)"
+        note="The question is the title, the description says what’s lost, the button repeats the verb. Delete shows a spinner, and while it works the dialog can’t be closed."
+      >
+        <ConfirmDemo />
+      </Specimen>
+
+      <Specimen
+        title="Dialog with a form"
+        note="Esc, × and a click outside close it, until you pick a reason or type: then the × goes and only Cancel closes it, so nothing is lost by accident. Send stays grey until a reason is picked."
+      >
+        <ReportDemo />
+      </Specimen>
+
+      <Specimen title="Sheet: a list" note="Narrow the window below 640px (or use a phone): it rises from the bottom with a grab handle. Wider, it’s a centred dialog.">
+        <ShareSheetDemo />
+      </Specimen>
+
+      <Specimen title="Sheet with Save" note="Changes only count after Save. On phones the buttons stack full width, Save on top.">
+        <AvatarSheetDemo />
       </Specimen>
     </Spec>
   );
@@ -1276,6 +1320,7 @@ export default function KitPage() {
           <AvatarSpec />
           <TabsSpec />
           <MenuSpec />
+          <DialogSpec />
         </main>
       </div>
     </div>
