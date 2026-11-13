@@ -104,7 +104,7 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'dp', name: 'DP counter & reward toast', status: 'done', group: 'Game' },
   { id: 'reactions', name: 'Reaction bar', status: 'done', group: 'Game' },
   { id: 'exposure', name: 'Exposure meter', status: 'done', group: 'Game' },
-  { id: 'post', name: 'Post card & reply', status: 'review', group: 'Game' },
+  { id: 'post', name: 'Post card & reply', status: 'done', group: 'Game' },
 ];
 
 const COLOURS = {
@@ -1588,7 +1588,7 @@ function PostSpec() {
     <Spec
       id="post"
       title="Post card & reply"
-      status="review"
+      status="done"
       summary="The main thing people read. Built only from approved pieces: avatar, rank, topic tag, the … menu, reactions, reply. Replies live inside the card, one level deep."
       use={[
         'Feeds, a topic page, a profile’s posts, a single post’s page.',
