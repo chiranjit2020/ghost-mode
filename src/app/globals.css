@@ -236,8 +236,14 @@ body {
   from { transform: translateY(100%); }
   to { transform: none; }
 }
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   [role='menu'],
+  [role='status'] > *,
+  [role='alert'] > *,
   dialog { animation: none !important; }
 }
 

@@ -36,5 +36,6 @@ export { menuItemClasses, menuPanelClasses } from './menu-styles';
 export { Spinner } from './spinner';
 export { TabNav, Tabs, type TabsVariant } from './tabs';
 export { Tag, type TagSize, type TagTone } from './tag';
+export { ToastProvider, useToast, type ToastOptions, type ToastTone } from './toast';
 export { TextArea, TextField, type FieldIcon } from './text-field';
 export { TextLink, type TextLinkTone } from './text-link';

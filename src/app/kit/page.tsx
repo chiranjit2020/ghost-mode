@@ -56,6 +56,7 @@ import {
 import { Spec, Specimen, StateGrid, StatusTag, type Status } from './kit-parts';
 import { AvatarSheetDemo, ConfirmDemo, ReportDemo, ShareSheetDemo } from './dialog-demo';
 import { FlipMenuDemo, PostMenuDemo, SortMenuDemo } from './menu-demo';
+import { ToastDemo } from './toast-demo';
 import { Swatch } from './swatch';
 
 export const metadata: Metadata = { title: 'Component kit', robots: { index: false, follow: false } };
@@ -77,9 +78,9 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'avatar', name: 'Ghost avatar', status: 'done', group: 'Identity' },
   { id: 'tabs', name: 'Tabs', status: 'done', group: 'Navigation' },
   { id: 'menu', name: 'Menu', status: 'done', group: 'Navigation' },
-  { id: 'dialog', name: 'Dialog & sheet', status: 'review', group: 'Overlays' },
-  { id: 'toast', name: 'Toast', status: 'next', group: 'Overlays' },
-  { id: 'tooltip', name: 'Tooltip', status: 'planned', group: 'Overlays' },
+  { id: 'dialog', name: 'Dialog & sheet', status: 'done', group: 'Overlays' },
+  { id: 'toast', name: 'Toast', status: 'review', group: 'Overlays' },
+  { id: 'tooltip', name: 'Tooltip', status: 'next', group: 'Overlays' },
   { id: 'empty', name: 'Skeleton & empty state', status: 'planned', group: 'Feedback' },
   { id: 'rank', name: 'Rank badge', status: 'planned', group: 'Game' },
   { id: 'dp', name: 'DP counter & reward toast', status: 'planned', group: 'Game' },
@@ -1222,7 +1223,7 @@ function DialogSpec() {
     <Spec
       id="dialog"
       title="Dialog & sheet"
-      status="review"
+      status="done"
       summary="A panel over the page that needs an answer before you go back. Dialogs sit in the middle; sheets rise from the bottom on phones, where thumbs reach."
       use={[
         'Confirming something that can’t be undone (Delete, Leave).',
@@ -1230,7 +1231,7 @@ function DialogSpec() {
         'Sheet: a list to pick from, or longer content on a phone (Share).',
       ]}
       avoid={[
-        'News or “Done!” messages: those are toasts (next), which don’t stop you.',
+        'News or “Done!” messages: those are toasts, which don’t stop you.',
         'Long multi-step flows like sign-up: those get their own page.',
         'Opening a dialog from inside a dialog.',
       ]}
@@ -1255,6 +1256,34 @@ function DialogSpec() {
 
       <Specimen title="Sheet with Save" note="Changes only count after Save. On phones the buttons stack full width, Save on top.">
         <AvatarSheetDemo />
+      </Specimen>
+    </Spec>
+  );
+}
+
+function ToastSpec() {
+  return (
+    <Spec
+      id="toast"
+      title="Toast"
+      status="review"
+      summary="A short message that says something happened, then goes away by itself. It never blocks the page or moves your focus."
+      use={[
+        'Confirming an action the screen doesn’t already show (Link copied, Muted).',
+        'Offering Undo right after a quick action.',
+        'Something failed and wasn’t saved (stays until closed, with Retry).',
+      ]}
+      avoid={[
+        'Mistakes in a form: show them on the field.',
+        'Anything people must read or decide: that’s a dialog.',
+        'When the page already changes visibly: no toast needed.',
+      ]}
+    >
+      <Specimen
+        title="Tones and actions"
+        note="Bottom right here, bottom centre on phones. Plain and success leave after 5 s, Undo after 8 s, errors only when closed. Hover or Tab into one to pause it. Press several: at most 3 show."
+      >
+        <ToastDemo />
       </Specimen>
     </Spec>
   );
@@ -1321,6 +1350,7 @@ export default function KitPage() {
           <TabsSpec />
           <MenuSpec />
           <DialogSpec />
+          <ToastSpec />
         </main>
       </div>
     </div>

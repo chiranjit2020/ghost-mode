@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Google_Sans, Manrope, Playfair_Display } from 'next/font/google';
 import type { ReactNode } from 'react';
+import { ToastProvider } from '@/ui/components';
 import { WORLD } from '@/world/world.config';
 import './globals.css';
 
@@ -33,7 +34,9 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en-IN" className={`${googleSans.variable} ${manrope.variable} ${playfair.variable}`}>
-      <body>{children}</body>
+      <body>
+        <ToastProvider>{children}</ToastProvider>
+      </body>
     </html>
   );
 }
