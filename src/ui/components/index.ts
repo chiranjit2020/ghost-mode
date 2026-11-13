@@ -18,6 +18,16 @@ export {
   type CardShape,
   type CardTone,
 } from './card';
+export {
+  AVATAR_KEYS,
+  AVATAR_PRESETS,
+  avatarPreset,
+  GhostAvatar,
+  type AvatarKey,
+  type AvatarSize,
+  type AvatarTint,
+} from './avatar';
+export { AvatarPicker } from './avatar-picker';
 export { Checkbox, RadioGroup, Switch } from './choice';
 export { CountBadge } from './count-badge';
 export { Spinner } from './spinner';

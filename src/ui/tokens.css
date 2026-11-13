@@ -27,7 +27,7 @@
   /* Text */
   --color-bone: #f5f2f8; /* main */
   --color-ash: #a7a1b2; /* secondary */
-  --color-smoke: #6f6879; /* tertiary, hints */
+  --color-smoke: #8a8495; /* tertiary, hints: 4.5:1 on every background (was #6f6879, 3.75:1) */
   --color-ink: #09080c; /* on bright fills (halo, bone) */
 
   /* Roles */

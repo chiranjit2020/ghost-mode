@@ -28,6 +28,10 @@ import { Brand } from '@/ui/landing/site-header';
 import { Accent } from '@/ui/landing/primitives';
 import type { IconType } from 'react-icons';
 import {
+  AVATAR_KEYS,
+  AvatarPicker,
+  avatarPreset,
+  GhostAvatar,
   Button,
   ButtonLink,
   Card,
@@ -65,9 +69,9 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'tag', name: 'Tag & count badge', status: 'done', group: 'Base' },
   { id: 'card', name: 'Card', status: 'done', group: 'Base' },
   { id: 'field', name: 'Text field', status: 'done', group: 'Forms' },
-  { id: 'choice', name: 'Checkbox, radio, switch', status: 'review', group: 'Forms' },
-  { id: 'avatar', name: 'Ghost avatar', status: 'next', group: 'Identity' },
-  { id: 'tabs', name: 'Tabs', status: 'planned', group: 'Navigation' },
+  { id: 'choice', name: 'Checkbox, radio, switch', status: 'done', group: 'Forms' },
+  { id: 'avatar', name: 'Ghost avatar', status: 'review', group: 'Identity' },
+  { id: 'tabs', name: 'Tabs', status: 'next', group: 'Navigation' },
   { id: 'menu', name: 'Menu', status: 'planned', group: 'Navigation' },
   { id: 'dialog', name: 'Dialog & sheet', status: 'planned', group: 'Overlays' },
   { id: 'toast', name: 'Toast', status: 'planned', group: 'Overlays' },
@@ -868,7 +872,7 @@ function ChoiceSpec() {
     <Spec
       id="choice"
       title="Checkbox, radio, switch"
-      status="review"
+      status="done"
       summary="Three ways to choose. Each has one job, and the whole row, label included, is the thing you tap."
       use={[
         'Checkbox: choose any number, or agree to something. Applies when the form is sent.',
@@ -955,6 +959,106 @@ function ChoiceSpec() {
   );
 }
 
+function AvatarSpec() {
+  const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+  return (
+    <Spec
+      id="avatar"
+      title="Ghost avatar"
+      status="review"
+      summary="A Ghost's face: one of 16 preset icons on a tinted circle. No photos until Level 7, so an avatar can never give away a real face."
+      use={[
+        'Next to a handle: posts, replies, chat, lists, profiles.',
+        'The picker: choosing a face at sign-up (and later on your profile).',
+      ]}
+      avoid={[
+        'Pure Souls: they are a game event, not an account, so they never get a face.',
+        'Ranks, Cloak or frames on the avatar: those arrive with their own levels.',
+        'An avatar on its own without a label: pass one, or put the handle beside it.',
+      ]}
+    >
+      <Specimen title="Sizes" note="xs inline · sm replies and lists · md posts and chat · lg profile cards · xl your own profile.">
+        <div className="flex flex-wrap items-end gap-6">
+          {sizes.map((s) => (
+            <div key={s} className="flex flex-col items-center gap-2">
+              <GhostAvatar avatarKey="ghost" size={s} />
+              <span className="text-xs text-smoke">{s}</span>
+            </div>
+          ))}
+        </div>
+      </Specimen>
+
+      <Specimen title="All 16 presets" note="Four tints, four faces each. The tint means nothing; it only keeps a feed from looking the same.">
+        <div className="grid grid-cols-4 gap-4 sm:grid-cols-8">
+          {AVATAR_KEYS.map((k) => (
+            <div key={k} className="flex flex-col items-center gap-2">
+              <GhostAvatar avatarKey={k} size="lg" />
+              <span className="text-xs text-ash">{avatarPreset(k).label}</span>
+            </div>
+          ))}
+        </div>
+      </Specimen>
+
+      <Specimen title="Special cases" note="A deleted account is grey and dashed. A key we don't know (old data) shows the ghost instead of breaking.">
+        <div className="flex flex-wrap items-center gap-8">
+          <div className="flex items-center gap-3">
+            <GhostAvatar avatarKey="cat" gone />
+            <div>
+              <p className="font-semibold text-ash">Deleted Ghost</p>
+              <p className="text-xs text-smoke">Account removed</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <GhostAvatar avatarKey="no-such-key" />
+            <div>
+              <p className="font-semibold text-bone">OldSpecter</p>
+              <p className="text-xs text-smoke">Unknown key: falls back to Ghost</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <GhostAvatar avatarKey="moon" label="NightOwl" />
+            <p className="text-xs text-smoke">Alone, with a label for screen readers</p>
+          </div>
+        </div>
+      </Specimen>
+
+      <Specimen title="Picker" note="A radio group underneath: click a face, or Tab in and use the arrow keys. The name is written out below.">
+        <AvatarPicker />
+      </Specimen>
+
+      <Specimen title="In context" note="A post, a reply, and a profile card.">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <Card as="article" padding="sm">
+            <div className="flex items-center gap-3">
+              <GhostAvatar avatarKey="chai" />
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold text-bone">ChaiDemon</p>
+                <p className="text-xs text-smoke">Trickster · 12 min</p>
+              </div>
+              <IconButton icon={PiDotsThreeBold} label="More options" variant="quiet" size="sm" />
+            </div>
+            <p className="mt-3 text-sm leading-relaxed text-bone">Confession: I clap when the plane lands. Every time.</p>
+            <div className="mt-4 flex items-start gap-2.5 border-t border-line pt-3">
+              <GhostAvatar avatarKey="moon" size="sm" />
+              <div className="min-w-0">
+                <p className="text-sm">
+                  <span className="font-semibold text-bone">MidnightMoth</span> <span className="text-xs text-smoke">3 min</span>
+                </p>
+                <p className="text-sm text-bone">The pilot deserves it. I respect this.</p>
+              </div>
+            </div>
+          </Card>
+          <Card tone="feature" className="text-center">
+            <GhostAvatar avatarKey="skull" size="xl" className="mx-auto" />
+            <p className="mt-3 font-display text-xl font-extrabold text-bone">ShadowSkull</p>
+            <p className="mt-1 text-sm text-ash">Joined this week</p>
+          </Card>
+        </div>
+      </Specimen>
+    </Spec>
+  );
+}
+
 export default function KitPage() {
   const groups = [...new Set(ROADMAP.map((r) => r.group))];
   return (
@@ -1012,6 +1116,7 @@ export default function KitPage() {
           <CardSpec />
           <FieldSpec />
           <ChoiceSpec />
+          <AvatarSpec />
         </main>
       </div>
     </div>
