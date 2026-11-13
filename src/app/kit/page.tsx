@@ -68,6 +68,7 @@ import {
 import { Spec, Specimen, StateGrid, StatusTag, type Status } from './kit-parts';
 import { DpDemo } from './dp-demo';
 import { FeedStatesDemo } from './empty-demo';
+import { ReactionsDemo } from './reactions-demo';
 import { AvatarSheetDemo, ConfirmDemo, ReportDemo, ShareSheetDemo } from './dialog-demo';
 import { FlipMenuDemo, PostMenuDemo, SortMenuDemo } from './menu-demo';
 import { ToastDemo } from './toast-demo';
@@ -98,9 +99,9 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'tooltip', name: 'Tooltip', status: 'done', group: 'Overlays' },
   { id: 'empty', name: 'Skeleton & empty state', status: 'done', group: 'Feedback' },
   { id: 'rank', name: 'Rank badge', status: 'done', group: 'Game' },
-  { id: 'dp', name: 'DP counter & reward toast', status: 'review', group: 'Game' },
-  { id: 'reactions', name: 'Reaction bar', status: 'next', group: 'Game' },
-  { id: 'exposure', name: 'Exposure meter', status: 'planned', group: 'Game' },
+  { id: 'dp', name: 'DP counter & reward toast', status: 'done', group: 'Game' },
+  { id: 'reactions', name: 'Reaction bar', status: 'review', group: 'Game' },
+  { id: 'exposure', name: 'Exposure meter', status: 'next', group: 'Game' },
   { id: 'post', name: 'Post card & reply', status: 'planned', group: 'Game' },
 ];
 
@@ -1488,7 +1489,7 @@ function DpSpec() {
     <Spec
       id="dp"
       title="DP counter & reward toast"
-      status="review"
+      status="done"
       summary="A devil’s Devil Points and the moment they move. The counter counts to the new number; the reward toast says what happened, once."
       use={[
         'The DP chip in the header, and the big number on a profile.',
@@ -1502,6 +1503,29 @@ function DpSpec() {
       ]}
     >
       <DpDemo />
+    </Spec>
+  );
+}
+
+function ReactionsSpec() {
+  return (
+    <Spec
+      id="reactions"
+      title="Reaction bar"
+      status="review"
+      summary="The eight dark reactions under a post. One per person: tap React, pick one, and the button shows what you sent. Tap yours again to take it back."
+      use={[
+        'Under every post and reply.',
+        'Showing the 3 most used and the total, calmly.',
+        '😇 Halo, only while its Level 3 switch is on.',
+      ]}
+      avoid={[
+        'Reordering the reactions by popularity: they stay in the same places, so thumbs learn them.',
+        'Exact counts per emoji on the bar: that turns posts into a scoreboard.',
+        'A hidden cost: Halo says what it costs before you throw it.',
+      ]}
+    >
+      <ReactionsDemo />
     </Spec>
   );
 }
@@ -1572,6 +1596,7 @@ export default function KitPage() {
           <EmptySpec />
           <RankSpec />
           <DpSpec />
+          <ReactionsSpec />
         </main>
       </div>
     </div>
