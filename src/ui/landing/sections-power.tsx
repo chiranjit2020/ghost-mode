@@ -1,7 +1,7 @@
-import { PiCrown, PiLightning } from 'react-icons/pi';
-import { HALO, RANKS, REACTIONS } from '@/world/world.config';
+import { PiLightning } from 'react-icons/pi';
+import { HALO, REACTIONS } from '@/world/world.config';
 import { Accent, ArtSlot, Eyebrow, Heading, Highlight, Lead, Section } from './primitives';
-import { ButtonLink, Card, CardWell, GhostAvatar } from '@/ui/components';
+import { ButtonLink, Card, CardWell, GhostAvatar, RankBadge, RankLadder } from '@/ui/components';
 import { ReactionMystery } from './reaction-mystery';
 
 /* 05 — Devil Points */
@@ -64,9 +64,7 @@ function PowerProfile() {
       <Card tone="feature" className="text-center">
       <GhostAvatar avatarKey="skull" size="xl" />
       <p className="mt-4 font-display text-2xl font-extrabold tracking-wide text-bone">SHADOWWOLF</p>
-      <p className="mt-1 inline-flex items-center gap-1.5 text-sm font-semibold tracking-[0.18em] text-crimson uppercase">
-        <PiCrown aria-hidden className="size-4" /> Archdevil
-      </p>
+      <RankBadge rank={7} size="md" className="mt-1" />
       <p className="mt-4 font-display text-4xl font-extrabold gradient-ink tabular-nums">8,450 DP</p>
       <dl className="mt-5 grid grid-cols-2 gap-2 text-left">
         <CardWell>
@@ -98,15 +96,7 @@ export function RanksSection() {
             avatars, frames, animations and titles that come with them.
           </Lead>
 
-          <ol className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4">
-            {RANKS.map((r, i) => (
-              <li key={r.title} data-tier={i + 1} className="rank-card rounded-2xl border border-line bg-surface p-4">
-                <p className="text-xs font-semibold text-crimson tabular-nums">{String(i + 1).padStart(2, '0')}</p>
-                <p className="mt-2 font-display font-bold text-bone">{r.title}</p>
-                <p className="mt-1 text-xs leading-snug text-ash">{r.line}</p>
-              </li>
-            ))}
-          </ol>
+          <RankLadder className="mt-10" />
 
           <div className="mt-8">
             <ButtonLink href="/enter">Discover your rank</ButtonLink>

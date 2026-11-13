@@ -51,6 +51,10 @@ import {
   SkeletonGroup,
   IconButtonLink,
   RadioGroup,
+  RankBadge,
+  RankLadder,
+  RankProgress,
+  type RankNumber,
   Switch,
   TabNav,
   Tabs,
@@ -91,9 +95,9 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'dialog', name: 'Dialog & sheet', status: 'done', group: 'Overlays' },
   { id: 'toast', name: 'Toast', status: 'done', group: 'Overlays' },
   { id: 'tooltip', name: 'Tooltip', status: 'done', group: 'Overlays' },
-  { id: 'empty', name: 'Skeleton & empty state', status: 'review', group: 'Feedback' },
-  { id: 'rank', name: 'Rank badge', status: 'next', group: 'Game' },
-  { id: 'dp', name: 'DP counter & reward toast', status: 'planned', group: 'Game' },
+  { id: 'empty', name: 'Skeleton & empty state', status: 'done', group: 'Feedback' },
+  { id: 'rank', name: 'Rank badge', status: 'review', group: 'Game' },
+  { id: 'dp', name: 'DP counter & reward toast', status: 'next', group: 'Game' },
   { id: 'reactions', name: 'Reaction bar', status: 'planned', group: 'Game' },
   { id: 'exposure', name: 'Exposure meter', status: 'planned', group: 'Game' },
   { id: 'post', name: 'Post card & reply', status: 'planned', group: 'Game' },
@@ -1337,7 +1341,7 @@ function EmptySpec() {
     <Spec
       id="empty"
       title="Skeleton & empty state"
-      status="review"
+      status="done"
       summary="What a list shows before its content arrives, and when there isn’t any. Skeletons hold the layout while loading; an empty state says why it’s empty and what to do next."
       use={[
         'Skeleton: a feed, profile or list that takes more than a moment to load.',
@@ -1400,6 +1404,79 @@ function EmptySpec() {
             </div>
           </Card>
         </div>
+      </Specimen>
+    </Spec>
+  );
+}
+
+function RankSpec() {
+  const all = [1, 2, 3, 4, 5, 6, 7, 8] as RankNumber[];
+  return (
+    <Spec
+      id="rank"
+      title="Rank badge"
+      status="review"
+      summary="Where a devil stands, from Lost Soul to Dark Lord. One colour that builds up rank by rank, always with the number, so the order reads even without colour."
+      use={[
+        'Small badge beside a name on posts and replies.',
+        'Profile title under the name.',
+        'The ladder on the profile and the landing; progress on your own profile.',
+      ]}
+      avoid={[
+        'Both sizes on one name.',
+        'Selling a rank, or showing one next to a price: ranks are earned.',
+        'Inventing rank names in a page: they come from world.config.ts.',
+      ]}
+    >
+      <Specimen title="Small badge, all eight" note="Lost Soul is plain grey. The red tint and glow grow with each rank; only Dark Lord gets the fire. Screen readers hear “Dark Knight, rank 5 of 8”.">
+        <div className="flex flex-wrap gap-2">
+          {all.map((r) => (
+            <RankBadge key={r} rank={r} />
+          ))}
+        </div>
+      </Specimen>
+
+      <Specimen title="In place" note="Beside a name on a post, and as the title on a profile (the landing’s style, crown from Imp up).">
+        <div className="grid gap-4 md:grid-cols-2">
+          <Card>
+            <div className="flex items-center gap-3">
+              <GhostAvatar avatarKey="skull" />
+              <div className="min-w-0 flex-1">
+                <p className="flex flex-wrap items-center gap-2 font-semibold text-bone">
+                  ShadowSkull <RankBadge rank={5} />
+                </p>
+                <p className="text-xs text-smoke">2 h</p>
+              </div>
+            </div>
+            <p className="mt-3 text-sm text-bone">I reply &ldquo;haha&rdquo; to texts with a completely straight face.</p>
+          </Card>
+          <Card className="text-center">
+            <GhostAvatar avatarKey="moth" size="lg" />
+            <p className="mt-3 font-display text-xl font-extrabold text-bone">MidnightMoth</p>
+            <RankBadge rank={7} size="md" className="mt-1" />
+          </Card>
+        </div>
+      </Specimen>
+
+      <Specimen title="Purified" note="After the Pure Souls catch you: Pure Soul gold replaces the rank for a few days, and the rank underneath is back to Lost Soul.">
+        <div className="flex flex-wrap items-center gap-6">
+          <p className="flex items-center gap-2 font-semibold text-bone">
+            ChaiDemon <RankBadge rank={1} purified />
+          </p>
+          <RankBadge rank={1} size="md" purified />
+        </div>
+      </Specimen>
+
+      <Specimen title="Progress to the next rank" note="Your own profile only. The DP numbers are examples: the real thresholds are set with the points system in Level 3.">
+        <div className="grid max-w-xl gap-6">
+          <RankProgress rank={4} percent={62} toNext="340 DP to Dark Knight" />
+          <RankProgress rank={1} percent={8} toNext="90 DP to Imp" />
+          <RankProgress rank={8} percent={100} />
+        </div>
+      </Specimen>
+
+      <Specimen title="Ladder" note="All eight in order. You are at Shadow Demon: ranks ahead are quieter but never hidden. The landing uses this without a current rank.">
+        <RankLadder current={4} />
       </Specimen>
     </Spec>
   );
@@ -1469,6 +1546,7 @@ export default function KitPage() {
           <ToastSpec />
           <TooltipSpec />
           <EmptySpec />
+          <RankSpec />
         </main>
       </div>
     </div>
