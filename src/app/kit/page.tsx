@@ -57,6 +57,7 @@ import { Spec, Specimen, StateGrid, StatusTag, type Status } from './kit-parts';
 import { AvatarSheetDemo, ConfirmDemo, ReportDemo, ShareSheetDemo } from './dialog-demo';
 import { FlipMenuDemo, PostMenuDemo, SortMenuDemo } from './menu-demo';
 import { ToastDemo } from './toast-demo';
+import { TooltipDemo } from './tooltip-demo';
 import { Swatch } from './swatch';
 
 export const metadata: Metadata = { title: 'Component kit', robots: { index: false, follow: false } };
@@ -79,9 +80,9 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'tabs', name: 'Tabs', status: 'done', group: 'Navigation' },
   { id: 'menu', name: 'Menu', status: 'done', group: 'Navigation' },
   { id: 'dialog', name: 'Dialog & sheet', status: 'done', group: 'Overlays' },
-  { id: 'toast', name: 'Toast', status: 'review', group: 'Overlays' },
-  { id: 'tooltip', name: 'Tooltip', status: 'next', group: 'Overlays' },
-  { id: 'empty', name: 'Skeleton & empty state', status: 'planned', group: 'Feedback' },
+  { id: 'toast', name: 'Toast', status: 'done', group: 'Overlays' },
+  { id: 'tooltip', name: 'Tooltip', status: 'review', group: 'Overlays' },
+  { id: 'empty', name: 'Skeleton & empty state', status: 'next', group: 'Feedback' },
   { id: 'rank', name: 'Rank badge', status: 'planned', group: 'Game' },
   { id: 'dp', name: 'DP counter & reward toast', status: 'planned', group: 'Game' },
   { id: 'reactions', name: 'Reaction bar', status: 'planned', group: 'Game' },
@@ -1266,7 +1267,7 @@ function ToastSpec() {
     <Spec
       id="toast"
       title="Toast"
-      status="review"
+      status="done"
       summary="A short message that says something happened, then goes away by itself. It never blocks the page or moves your focus."
       use={[
         'Confirming an action the screen doesn’t already show (Link copied, Muted).',
@@ -1285,6 +1286,29 @@ function ToastSpec() {
       >
         <ToastDemo />
       </Specimen>
+    </Spec>
+  );
+}
+
+function TooltipSpec() {
+  return (
+    <Spec
+      id="tooltip"
+      title="Tooltip"
+      status="review"
+      summary="Small text next to a control. A tooltip names an icon button when you hover or Tab to it. A toggletip is an ⓘ you tap to explain a game word, so it works on phones too."
+      use={[
+        'Tooltip: naming icon-only buttons (Save, Mute, Share) for mouse and keyboard users.',
+        'Tooltip with describes: a short extra hint the label doesn’t cover.',
+        'Toggletip: explaining a game word (DP, Soul Exposure) where it appears.',
+      ]}
+      avoid={[
+        'Anything people need on a phone in a tooltip: phones have no hover.',
+        'Buttons with visible text: they already say what they do.',
+        'Links, buttons or long help inside: that’s a dialog or a help page.',
+      ]}
+    >
+      <TooltipDemo />
     </Spec>
   );
 }
@@ -1351,6 +1375,7 @@ export default function KitPage() {
           <MenuSpec />
           <DialogSpec />
           <ToastSpec />
+          <TooltipSpec />
         </main>
       </div>
     </div>
