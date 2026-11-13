@@ -24,10 +24,14 @@ body {
   color: var(--color-bone);
 }
 
-:focus-visible {
-  outline: 2px solid var(--color-ember);
-  outline-offset: 3px;
-  border-radius: 6px;
+/* The default keyboard ring. In the base layer so a component's own focus-visible: classes win (an unlayered rule
+   beat them: tabs inside a scrolling bar got a clipped outside ring, round buttons got square 6px corners). */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-ember);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -31,6 +31,7 @@ export { AvatarPicker } from './avatar-picker';
 export { Checkbox, RadioGroup, Switch } from './choice';
 export { CountBadge } from './count-badge';
 export { Spinner } from './spinner';
+export { TabNav, Tabs, type TabsVariant } from './tabs';
 export { Tag, type TagSize, type TagTone } from './tag';
 export { TextArea, TextField, type FieldIcon } from './text-field';
 export { TextLink, type TextLinkTone } from './text-link';

@@ -44,6 +44,8 @@ import {
   IconButtonLink,
   RadioGroup,
   Switch,
+  TabNav,
+  Tabs,
   Tag,
   TextArea,
   TextField,
@@ -71,8 +73,8 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'field', name: 'Text field', status: 'done', group: 'Forms' },
   { id: 'choice', name: 'Checkbox, radio, switch', status: 'done', group: 'Forms' },
   { id: 'avatar', name: 'Ghost avatar', status: 'review', group: 'Identity' },
-  { id: 'tabs', name: 'Tabs', status: 'next', group: 'Navigation' },
-  { id: 'menu', name: 'Menu', status: 'planned', group: 'Navigation' },
+  { id: 'tabs', name: 'Tabs', status: 'review', group: 'Navigation' },
+  { id: 'menu', name: 'Menu', status: 'next', group: 'Navigation' },
   { id: 'dialog', name: 'Dialog & sheet', status: 'planned', group: 'Overlays' },
   { id: 'toast', name: 'Toast', status: 'planned', group: 'Overlays' },
   { id: 'tooltip', name: 'Tooltip', status: 'planned', group: 'Overlays' },
@@ -1059,6 +1061,129 @@ function AvatarSpec() {
   );
 }
 
+function TabsSpec() {
+  const posts = (
+    <div className="space-y-3">
+      <Card as="article" padding="sm">
+        <div className="flex items-center gap-3">
+          <GhostAvatar avatarKey="skull" />
+          <div className="min-w-0 flex-1">
+            <p className="font-semibold text-bone">ShadowSkull</p>
+            <p className="text-xs text-smoke">2 h</p>
+          </div>
+        </div>
+        <p className="mt-3 text-sm text-bone">I reply &ldquo;haha&rdquo; to texts with a completely straight face.</p>
+      </Card>
+    </div>
+  );
+  const empty = (text: string) => <p className="rounded-field border border-dashed border-line px-4 py-8 text-center text-sm text-ash">{text}</p>;
+  return (
+    <Spec
+      id="tabs"
+      title="Tabs"
+      status="review"
+      summary="Switch between views of the same thing. Two looks: a line under the page title for sections, and pills inside a card for a small filter."
+      use={[
+        'Line: sections of one page (a profile’s Posts / Replies / Saved).',
+        'Pill: a small filter inside a card (Today / Week / All time).',
+        'TabNav (links) when the tab should survive Back, refresh and sharing (For you / Following).',
+      ]}
+      avoid={[
+        'Steps in a process (sign-up): those go one after another, not side by side.',
+        'More than 6 tabs, or long labels: use a menu (next).',
+        'Actions (Post, Delete): tabs only change what you see.',
+      ]}
+    >
+      <Specimen title="Line" note="Click, or Tab in and use ← → Home End. The view changes as you move. Saved is disabled (arrives later).">
+        <Tabs
+          label="Profile sections"
+          tabs={[
+            { value: 'posts', label: 'Posts', count: 24, content: posts },
+            { value: 'replies', label: 'Replies', count: 112, content: empty('Replies you’ve written show here.') },
+            { value: 'rewards', label: 'Rewards', badge: 3, content: empty('3 new rewards from the darkness.') },
+            { value: 'saved', label: 'Saved', disabled: true, content: null },
+          ]}
+        />
+      </Specimen>
+
+      <Specimen title="Pill" note="A filter inside a card. On = solid bone with ink, like a pressed icon button.">
+        <Card>
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="font-display text-lg font-bold text-bone">Top devils</p>
+          </div>
+          <Tabs
+            label="Leaderboard period"
+            variant="pill"
+            className="mt-3"
+            defaultValue="week"
+            tabs={[
+              { value: 'today', label: 'Today', content: empty('Nobody has earned anything yet today.') },
+              {
+                value: 'week',
+                label: 'This week',
+                content: (
+                  <ol className="divide-y divide-line">
+                    {[
+                      ['ShadowSkull', 'skull', 920],
+                      ['ChaiDemon', 'chai', 780],
+                      ['MidnightMoth', 'moth', 655],
+                    ].map(([n, k, dp], i) => (
+                      <li key={n} className="flex items-center gap-3 py-2.5">
+                        <span className="w-4 text-sm text-smoke tabular-nums">{i + 1}</span>
+                        <GhostAvatar avatarKey={String(k)} size="sm" />
+                        <span className="flex-1 text-sm font-semibold text-bone">{n}</span>
+                        <span className="text-sm text-ash tabular-nums">{dp} DP</span>
+                      </li>
+                    ))}
+                  </ol>
+                ),
+              },
+              { value: 'all', label: 'All time', content: empty('Arrives with ranks in Level 3.') },
+            ]}
+          />
+        </Card>
+      </Specimen>
+
+      <Specimen title="TabNav (links)" note="Same looks, but each tab is a link to its own URL, so Back and refresh keep it. These point at #tabs.">
+        <div className="space-y-6">
+          <TabNav
+            label="Feed"
+            tabs={[
+              { href: '#tabs', label: 'For you', current: true },
+              { href: '#tabs-following', label: 'Following', badge: 'dot' },
+              { href: '#tabs-confessions', label: 'Confessions' },
+              { href: '#tabs-hunts', label: 'Hunts', disabled: true },
+            ]}
+          />
+          <TabNav
+            label="Messages"
+            variant="pill"
+            tabs={[
+              { href: '#tabs', label: 'Chats', current: true, badge: 2 },
+              { href: '#tabs-requests', label: 'Requests', count: 5 },
+            ]}
+          />
+        </div>
+      </Specimen>
+
+      <Specimen title="On a phone" note="Too many tabs for the width scroll sideways inside the bar; the page itself never scrolls sideways.">
+        <div className="max-w-80">
+          <TabNav
+            label="Phone example"
+            tabs={[
+              { href: '#tabs', label: 'For you', current: true },
+              { href: '#tabs-a', label: 'Following' },
+              { href: '#tabs-b', label: 'Confessions' },
+              { href: '#tabs-c', label: 'Hot takes' },
+              { href: '#tabs-d', label: 'Roasts' },
+            ]}
+          />
+        </div>
+      </Specimen>
+    </Spec>
+  );
+}
+
 export default function KitPage() {
   const groups = [...new Set(ROADMAP.map((r) => r.group))];
   return (
@@ -1117,6 +1242,7 @@ export default function KitPage() {
           <FieldSpec />
           <ChoiceSpec />
           <AvatarSpec />
+          <TabsSpec />
         </main>
       </div>
     </div>
