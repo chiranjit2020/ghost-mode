@@ -240,7 +240,15 @@ body {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: none; }
 }
+/* Skeleton: a soft pulse while content loads. */
+@keyframes skeleton-pulse {
+  50% { opacity: 0.45; }
+}
+.skeleton {
+  animation: skeleton-pulse 1.6s ease-in-out infinite;
+}
 @media (prefers-reduced-motion: reduce) {
+  .skeleton,
   [role='menu'],
   [role='status'] > *,
   [role='alert'] > *,

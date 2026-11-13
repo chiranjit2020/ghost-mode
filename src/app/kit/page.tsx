@@ -22,6 +22,10 @@ import {
   PiShieldCheck,
   PiSmiley,
   PiTrash,
+  PiCloudSlash,
+  PiMagnifyingGlassMinus,
+  PiLockSimple,
+  PiUsersThree,
   PiX,
 } from 'react-icons/pi';
 import { Brand } from '@/ui/landing/site-header';
@@ -40,7 +44,11 @@ import {
   CardWell,
   Checkbox,
   CountBadge,
+  EmptyState,
   IconButton,
+  RowSkeleton,
+  Skeleton,
+  SkeletonGroup,
   IconButtonLink,
   RadioGroup,
   Switch,
@@ -54,6 +62,7 @@ import {
   type TagTone,
 } from '@/ui/components';
 import { Spec, Specimen, StateGrid, StatusTag, type Status } from './kit-parts';
+import { FeedStatesDemo } from './empty-demo';
 import { AvatarSheetDemo, ConfirmDemo, ReportDemo, ShareSheetDemo } from './dialog-demo';
 import { FlipMenuDemo, PostMenuDemo, SortMenuDemo } from './menu-demo';
 import { ToastDemo } from './toast-demo';
@@ -81,9 +90,9 @@ const ROADMAP: { id: string; name: string; status: Status; group: string }[] = [
   { id: 'menu', name: 'Menu', status: 'done', group: 'Navigation' },
   { id: 'dialog', name: 'Dialog & sheet', status: 'done', group: 'Overlays' },
   { id: 'toast', name: 'Toast', status: 'done', group: 'Overlays' },
-  { id: 'tooltip', name: 'Tooltip', status: 'review', group: 'Overlays' },
-  { id: 'empty', name: 'Skeleton & empty state', status: 'next', group: 'Feedback' },
-  { id: 'rank', name: 'Rank badge', status: 'planned', group: 'Game' },
+  { id: 'tooltip', name: 'Tooltip', status: 'done', group: 'Overlays' },
+  { id: 'empty', name: 'Skeleton & empty state', status: 'review', group: 'Feedback' },
+  { id: 'rank', name: 'Rank badge', status: 'next', group: 'Game' },
   { id: 'dp', name: 'DP counter & reward toast', status: 'planned', group: 'Game' },
   { id: 'reactions', name: 'Reaction bar', status: 'planned', group: 'Game' },
   { id: 'exposure', name: 'Exposure meter', status: 'planned', group: 'Game' },
@@ -1072,7 +1081,11 @@ function TabsSpec() {
       </Card>
     </div>
   );
-  const empty = (text: string) => <p className="rounded-field border border-dashed border-line px-4 py-8 text-center text-sm text-ash">{text}</p>;
+  const empty = (icon: IconType, title: string, text: string) => (
+    <EmptyState icon={icon} title={title}>
+      {text}
+    </EmptyState>
+  );
   return (
     <Spec
       id="tabs"
@@ -1095,8 +1108,8 @@ function TabsSpec() {
           label="Profile sections"
           tabs={[
             { value: 'posts', label: 'Posts', count: 24, content: posts },
-            { value: 'replies', label: 'Replies', count: 112, content: empty('Replies you’ve written show here.') },
-            { value: 'rewards', label: 'Rewards', badge: 3, content: empty('3 new rewards from the darkness.') },
+            { value: 'replies', label: 'Replies', count: 112, content: empty(PiChatsCircle, 'No replies yet', 'Replies you write to other devils show here.') },
+            { value: 'rewards', label: 'Rewards', badge: 3, content: empty(PiSparkle, '3 new rewards', 'The darkness has been generous this week.') },
             { value: 'saved', label: 'Saved', disabled: true, content: null },
           ]}
         />
@@ -1113,7 +1126,7 @@ function TabsSpec() {
             className="mt-3"
             defaultValue="week"
             tabs={[
-              { value: 'today', label: 'Today', content: empty('Nobody has earned anything yet today.') },
+              { value: 'today', label: 'Today', content: empty(PiLightning, 'No points yet today', 'The first devil to post today takes the top spot.') },
               {
                 value: 'week',
                 label: 'This week',
@@ -1134,7 +1147,7 @@ function TabsSpec() {
                   </ol>
                 ),
               },
-              { value: 'all', label: 'All time', content: empty('Arrives with ranks in Level 3.') },
+              { value: 'all', label: 'All time', content: empty(PiCrown, 'All-time ranks arrive in Level 3', 'Until then, the week is what counts.') },
             ]}
           />
         </Card>
@@ -1295,7 +1308,7 @@ function TooltipSpec() {
     <Spec
       id="tooltip"
       title="Tooltip"
-      status="review"
+      status="done"
       summary="Small text next to a control. A tooltip names an icon button when you hover or Tab to it. A toggletip is an ⓘ you tap to explain a game word, so it works on phones too."
       use={[
         'Tooltip: naming icon-only buttons (Save, Mute, Share) for mouse and keyboard users.',
@@ -1309,6 +1322,85 @@ function TooltipSpec() {
       ]}
     >
       <TooltipDemo />
+    </Spec>
+  );
+}
+
+function EmptySpec() {
+  const kinds: { kind: string; icon: IconType; title: string; text: string; action?: string }[] = [
+    { kind: 'First use', icon: PiUsersThree, title: 'You’re not following anyone yet', text: 'Follow devils whose posts you like, and they’ll show up here.', action: 'Find devils' },
+    { kind: 'No results', icon: PiMagnifyingGlassMinus, title: 'No Ghosts called “moth3”', text: 'Check the spelling, or search part of the name.' },
+    { kind: 'Couldn’t load', icon: PiCloudSlash, title: 'Couldn’t load your messages', text: 'The connection dropped. Nothing you sent was lost.', action: 'Try again' },
+    { kind: 'Not open yet', icon: PiLockSimple, title: 'Hunts arrive in Level 3', text: 'Pure Souls are still sharpening their senses.' },
+  ];
+  return (
+    <Spec
+      id="empty"
+      title="Skeleton & empty state"
+      status="review"
+      summary="What a list shows before its content arrives, and when there isn’t any. Skeletons hold the layout while loading; an empty state says why it’s empty and what to do next."
+      use={[
+        'Skeleton: a feed, profile or list that takes more than a moment to load.',
+        'Empty state: a list with nothing in it, a search with no results, a section that couldn’t load or isn’t open yet.',
+      ]}
+      avoid={[
+        'Skeletons for buttons or quick actions: those use a spinner.',
+        'A blank area or just “Nothing here”: always say why and what next.',
+        'Jokes at the person’s expense, or blaming them for an error.',
+      ]}
+    >
+      <Specimen title="One feed, four states" note="Loaded and Try again show the skeleton for a moment first, like a real load. The skeleton matches the real card: same avatar size, same padding.">
+        <FeedStatesDemo />
+      </Specimen>
+
+      <Specimen title="The four kinds of empty" note="Each is worded for its reason. Inline size, inside a card. One action at most; none when there’s nothing to do.">
+        <div className="grid gap-4 md:grid-cols-2">
+          {kinds.map((k) => (
+            <div key={k.kind} className="flex flex-col">
+              <p className="mb-2 text-xs font-semibold tracking-[0.16em] text-smoke uppercase">{k.kind}</p>
+              <Card className="flex flex-1 flex-col justify-center">
+                <EmptyState
+                  icon={k.icon}
+                  title={k.title}
+                  action={k.action ? <ButtonLink href="#empty" size="sm" variant="secondary">{k.action}</ButtonLink> : undefined}
+                >
+                  {k.text}
+                </EmptyState>
+              </Card>
+            </div>
+          ))}
+        </div>
+      </Specimen>
+
+      <Specimen title="Page size" note="When a whole screen’s main content is empty. More room, and the action can be the primary button.">
+        <EmptyState
+          size="page"
+          icon={PiScroll}
+          title="Your first confession is waiting"
+          action={<ButtonLink href="#empty">Write a confession</ButtonLink>}
+        >
+          Say the thing you’d never say with your name on it. Every reaction earns you Devil Points.
+        </EmptyState>
+      </Specimen>
+
+      <Specimen title="Skeleton pieces" note="Lines (two heights), circles and blocks, built into list rows. Screen readers hear “Loading leaderboard” once.">
+        <div className="grid gap-4 md:grid-cols-2">
+          <Card>
+            <SkeletonGroup label="Loading leaderboard" className="divide-y divide-line">
+              <RowSkeleton />
+              <RowSkeleton />
+              <RowSkeleton />
+            </SkeletonGroup>
+          </Card>
+          <Card>
+            <div aria-hidden className="space-y-3">
+              <Skeleton shape="block" className="h-32 w-full" />
+              <Skeleton className="w-2/3" />
+              <Skeleton line="sm" className="w-1/3" />
+            </div>
+          </Card>
+        </div>
+      </Specimen>
     </Spec>
   );
 }
@@ -1376,6 +1468,7 @@ export default function KitPage() {
           <DialogSpec />
           <ToastSpec />
           <TooltipSpec />
+          <EmptySpec />
         </main>
       </div>
     </div>
